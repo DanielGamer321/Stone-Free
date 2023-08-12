@@ -1,0 +1,30 @@
+{
+  "jolyne_stone_free": {
+    "subtitle": "rotp_sf.subtitle.stone_free_name",
+    "sounds": [ "rotp_sf:stand_user/jolyne_stone_free", "rotp_sf:stand_user/jolyne_stone_free_2", "rotp_sf:stand_user/jolyne_stone_free_3", "rotp_sf:stand_user/jolyne_stone_free_4" ]
+  },
+  "stone_free_ora": {
+    "subtitle": "jojo.subtitle.ora",
+    "sounds": [ "rotp_sf:stand/stone_free_ora" ]
+  },
+  "stone_free_ora_long": {
+    "subtitle": "jojo.subtitle.ora",
+    "sounds": [ "rotp_sf:stand/stone_free_ora_long", "rotp_sf:stand/stone_free_ora_long_2" ]
+  },
+  "stone_free_ora_ora_ora": {
+    "subtitle": "jojo.subtitle.ora_ora_ora",
+    "sounds": [ "rotp_sf:stand/stone_free_ora_ora_ora", "rotp_sf:stand/stone_free_ora_ora_ora_2", "rotp_sf:stand/stone_free_ora_ora_ora_3" ]
+  },
+  "stone_free_string": {
+    "sounds": [ "rotp_sf:stand/stone_free_string", "rotp_sf:stand/stone_free_string_2", "rotp_sf:stand/stone_free_string_3" ]
+  },
+  "stone_free_barrier_placed": {
+    "sounds": [ "rotp_sf:stand/stone_free_barrier_placed", "rotp_sf:stand/stone_free_barrier_placed_2" ]
+  },
+  "stone_free_barrier_ripped": {
+    "sounds": [ "rotp_sf:stand/stone_free_barrier_ripped" ]
+  },
+  "stone_free_grapple_catch": {
+    "sounds": [ "rotp_sf:stand/stone_free_catch", "rotp_sf:stand/stone_free_barrier_placed", "rotp_sf:stand/stone_free_barrier_placed_2" ]
+  }
+}

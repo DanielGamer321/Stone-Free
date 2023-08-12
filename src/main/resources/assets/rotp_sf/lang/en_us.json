@@ -1,0 +1,18 @@
+{
+  "entity.rotp_sf.stone_free": "Stone Free",
+  "entity.rotp_sf.sf_string": "Stone Free's String",
+  "entity.rotp_sf.sf_extended_punch": "Stone Free's Extended Punch",
+  "entity.rotp_sf.sf_grappling_string": "Stone Free's Grappling String",
+  "entity.rotp_sf.f_barrier": "Stone Free's Barrier",
+  "stand.rotp_sf.stone_free": "Stone Free",
+  "action.rotp_sf.stone_free_punch": "Punch",
+  "action.rotp_sf.stone_free_attack_binding": "String Binding",
+  "action.rotp_sf.stone_free_heavy_punch": "Heavy Punch",
+  "action.rotp_sf.stone_free_barrage": "Barrage",
+  "action.rotp_sf.stone_free_extended_punch": "Extended Punch",
+  "action.rotp_sf.stone_free_block": "Block",
+  "action.rotp_sf.stone_free_grapple": "Grapple",
+  "action.rotp_sf.stone_free_grapple_entity": "Hook an entity",
+  "action.rotp_sf.stone_free_barrier": "Place a Barrier (%s/%s)",
+  "rotp_sf.subtitle.stone_free_name": "\"Stone Free\""
+}
