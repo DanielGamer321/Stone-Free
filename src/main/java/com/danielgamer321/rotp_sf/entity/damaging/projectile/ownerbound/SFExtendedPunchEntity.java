@@ -26,7 +26,7 @@ public class SFExtendedPunchEntity extends OwnerBoundProjectileEntity {
     
     @Override
     public float getBaseDamage() {
-        return 5.53846158F;
+        return 5.1429F;
     }
     
     @Override
