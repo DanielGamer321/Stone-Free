@@ -9,6 +9,7 @@ import com.danielgamer321.rotp_sf.init.InitStands;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
+import com.github.standobyte.jojo.util.mod.JojoModUtil;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -72,7 +73,7 @@ public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
                 	}
                 }
                 else {
-                	dragTarget(bound, vecToOwner.normalize().scale(2));
+                	dragTarget(bound, vecToOwner.normalize().scale(1));
                 	bound.fallDistance = 0;
                 }
             }
@@ -150,10 +151,13 @@ public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
     protected boolean hurtTarget(Entity target, LivingEntity owner) {
         if (getEntityAttachedTo() == null && bindEntities) {
             if (target instanceof LivingEntity) {
-                attachToEntity((LivingEntity) target);
-                playSound(InitSounds.STONE_FREE_GRAPPLE_CATCH.get(), 1.0F, 1.0F);
-            	caughtAnEntity = true;
-                return true;
+                LivingEntity livingTarget = (LivingEntity) target;
+                if (!JojoModUtil.isTargetBlocking(livingTarget)) {
+                    attachToEntity((LivingEntity) target);
+                    playSound(InitSounds.STONE_FREE_GRAPPLE_CATCH.get(), 1.0F, 1.0F);
+            	    caughtAnEntity = true;
+                    return true;
+                }
             }
         }
         return false;
