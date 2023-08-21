@@ -60,6 +60,7 @@ public class InitStands {
     public static final RegistryObject<StandEntityAction> STONE_FREE_STRING_BIND = ACTIONS.register("stone_free_attack_binding", 
             () -> new StoneFreeStringAttack(new StandEntityHeavyAttack.Builder().staminaCost(75).standPerformDuration(25).cooldown(25, 100, 0.5F)
                     .partsRequired(StandPart.ARMS)
+                    .punchSound(InitSounds.SILENCIO)
                     .standOffsetFront().standPose(StandPose.RANGED_ATTACK).standSound(InitSounds.STONE_FREE_STRING)
                     .setFinisherVariation(STONE_FREE_HEAVY_PUNCH)
                     .shiftVariationOf(STONE_FREE_PUNCH).shiftVariationOf(STONE_FREE_BARRAGE)));

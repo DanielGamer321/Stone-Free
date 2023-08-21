@@ -15,6 +15,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class InitSounds {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, RotpStoneFreeAddon.MOD_ID);
     
+    public static final RegistryObject<SoundEvent> SILENCIO = SOUNDS.register("silencio", 
+            () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "silencio")));
+    
     public static final RegistryObject<SoundEvent> JOLYNE_STONE_FREE = SOUNDS.register("jolyne_stone_free", 
             () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "jolyne_stone_free")));
 
