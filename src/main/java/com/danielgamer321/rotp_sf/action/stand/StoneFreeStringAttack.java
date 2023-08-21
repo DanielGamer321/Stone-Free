@@ -15,6 +15,7 @@ import com.github.standobyte.jojo.util.general.MathUtil;
 import com.github.standobyte.jojo.entity.stand.StandStatFormulas;
 import com.github.standobyte.jojo.util.mc.damage.StandEntityDamageSource;
 
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.world.World;
@@ -37,18 +38,19 @@ public class StoneFreeStringAttack extends StandEntityHeavyAttack {
             boolean shift = isShiftVariation();
             int n = shift ? 1 : 1;
             for (int i = 0; i < n; i++) {
-                Vector2f rotOffsets = i > 0 ? MathUtil.xRotYRotOffsets((double) i / (double) n * Math.PI * 2, 10) : Vector2f.ZERO;
-                addProjectile(world, standEntity, rotOffsets.y, rotOffsets.x, shift);
+                Vector2f rotOffsets = MathUtil.xRotYRotOffsets((double) i / (double) n * Math.PI * 2, 10);
+                addProjectile(world, standPower, standEntity, rotOffsets.y, rotOffsets.x, shift);
             }
-            addProjectile(world, standEntity, 0, 0, shift);
+            addProjectile(world, standPower, standEntity, 0, 0, shift);
         }
     }
 
-    private void addProjectile(World world, StandEntity standEntity, float yRotDelta, float xRotDelta, boolean shift) {
+    private void addProjectile(World world, IStandPower standPower, StandEntity standEntity, float yRotDelta, float xRotDelta, boolean shift) {
     	SFStringEntity string = new SFStringEntity(world, standEntity, yRotDelta, xRotDelta, shift);
     	if (!shift) {
     		string.addKnockback(standEntity.guardCounter());
     	}
+        string.setLifeSpan(getStandActionTicks(standPower, standEntity));
     	standEntity.addProjectile(string);
     }
     
@@ -64,11 +66,17 @@ public class StoneFreeStringAttack extends StandEntityHeavyAttack {
     protected boolean standKeepsTarget(ActionTarget target) {
         return true;
     }
+    
+    @Override
+    public int getStandActionTicks(IStandPower standPower, StandEntity standEntity) {
+        double speed = standEntity.getAttackSpeed() / 8;
+        return MathHelper.ceil(super.getStandActionTicks(standPower, standEntity) / Math.max(speed, 0.125));
+    }
 
     @Override
     public StandEntityPunch punchEntity(StandEntity stand, Entity target, StandEntityDamageSource dmgSource) {
         return super.punchEntity(stand, target, dmgSource)
-                .damage(StandStatFormulas.getBarrageHitDamage(stand.getAttackDamage(), stand.getPrecision()))
+                .damage(0)
                 .addKnockback(0);
     }
 }
