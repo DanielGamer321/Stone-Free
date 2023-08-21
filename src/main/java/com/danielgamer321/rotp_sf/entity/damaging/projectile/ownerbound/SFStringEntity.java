@@ -5,6 +5,7 @@ import com.danielgamer321.rotp_sf.init.InitStands;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 import com.github.standobyte.jojo.init.ModStatusEffects;
 import com.github.standobyte.jojo.util.mc.damage.DamageUtil;
+import com.github.standobyte.jojo.util.mod.JojoModUtil;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -69,17 +70,24 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
             if (isBinding) {
                 if (target instanceof LivingEntity) {
                     LivingEntity livingTarget = (LivingEntity) target;
-                    attachToEntity(livingTarget);
-                    livingTarget.addEffect(new EffectInstance(ModStatusEffects.STUN.get(), ticksLifespan() - tickCount));
+                    if (!JojoModUtil.isTargetBlocking(livingTarget)) {
+                        attachToEntity(livingTarget);
+                        livingTarget.addEffect(new EffectInstance(ModStatusEffects.IMMOBILIZE.get(), ticksLifespan() - tickCount));
+                    }
                 }
             }
             else {
-                if (target instanceof LivingEntity) {
+                if (knockback > 0 && target instanceof LivingEntity) {
                 	DamageUtil.knockback((LivingEntity) target, knockback, yRot);
                 }
                 setIsRetracting(true);
             }
         }
+    }
+    
+    @Override
+    protected float knockbackMultiplier() {
+        return 0F;
     }
     
     @Override
@@ -89,14 +97,16 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
 
     @Override
 	public int ticksLifespan() {
-        return isBinding ? InitStands.STONE_FREE_STRING_BIND.get().getStandActionTicks(null, null) 
-                + (isAttachedToAnEntity() ? 10 : 0)
-                : InitStands.STONE_FREE_STRING_ATTACK.get().getStandActionTicks(null, null);
+        int ticks = super.ticksLifespan();
+        if (isBinding && isAttachedToAnEntity()) {
+            ticks += 10;
+        }
+        return ticks;
     }
     
     @Override
     protected float movementSpeed() {
-        return isBinding ? 0.9F : 2.25F;
+        return 16 / (float) ticksLifespan();
     }
     
     @Override
