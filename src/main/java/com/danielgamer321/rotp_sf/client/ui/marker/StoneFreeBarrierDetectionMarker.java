@@ -3,7 +3,9 @@ package com.danielgamer321.rotp_sf.client.ui.marker;
 import java.util.List;
 
 import com.danielgamer321.rotp_sf.RotpStoneFreeAddon;
+import com.danielgamer321.rotp_sf.entity.stand.stands.StoneFreeEntity;
 import com.danielgamer321.rotp_sf.init.AddonStands;
+import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.client.ui.marker.MarkerRenderer;
 
 import net.minecraft.client.Minecraft;
@@ -27,7 +29,6 @@ public class StoneFreeBarrierDetectionMarker extends MarkerRenderer {
 //                // FIXME the net isn't synced to client
 //                ((StoneFreeEntity) stand.getStandManifestation()).getBarriersNet()
 //                .wasRippedAt().forEach(point -> {
-//                    // FIXME the constructor isn't visible
 //                    list.add(new MarkerInstance(point, false));
 //                });
 //            }

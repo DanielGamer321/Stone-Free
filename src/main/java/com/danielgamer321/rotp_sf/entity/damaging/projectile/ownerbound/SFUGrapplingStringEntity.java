@@ -1,10 +1,10 @@
 package com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound;
 
-import java.util.UUID;
-
+import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
 import com.danielgamer321.rotp_sf.init.InitEntities;
 import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.danielgamer321.rotp_sf.init.InitStands;
+import com.danielgamer321.rotp_sf.power.impl.stand.type.StoneFreeStandType;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
@@ -13,32 +13,24 @@ import com.github.standobyte.jojo.util.mod.JojoModUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
-	private static final UUID MANUAL_MOVEMENT_LOCK = UUID.fromString("ccf94bd5-8f0f-4d1e-b606-ba0773d963f3");
+public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
     private IStandPower userStandPower;
     private boolean bindEntities;
-    private StandEntity stand;
+    private LivingEntity stand;
     private boolean caughtAnEntity = false;
 
-    public SFGrapplingStringEntity(World world, StandEntity entity, IStandPower userStand) {
-        super(InitEntities.SF_GRAPPLING_STRING.get(), entity, world);
+    public SFUGrapplingStringEntity(World world, LivingEntity entity, IStandPower userStand) {
+        super(InitEntities.SFU_GRAPPLING_STRING.get(), entity, world);
         this.stand = entity;
         this.userStandPower = userStand;
     }
-    
-    public SFGrapplingStringEntity(EntityType<? extends SFGrapplingStringEntity> entityType, World world) {
+
+    public SFUGrapplingStringEntity(EntityType<? extends SFUGrapplingStringEntity> entityType, World world) {
         super(entityType, world);
-    }
-    
-    @Override
-    public void remove() {
-    	super.remove();
-    	if (!level.isClientSide() && stand != null && caughtAnEntity) {
-    		stand.getManualMovementLocks().removeLock(MANUAL_MOVEMENT_LOCK);
-    	}
     }
     
     @Override
@@ -47,9 +39,10 @@ public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
         if (!isAlive()) {
             return;
         }
-        if (!level.isClientSide() && (userStandPower == null || userStandPower.getHeldAction() != InitStands.STONE_FREE_GRAPPLE_ENTITY.get())) {
-        	remove();
-        	return;
+        if (!level.isClientSide() && (userStandPower == null || userStandPower.getHeldAction() ==
+                InitStands.STONE_FREE_USER_RECOVER_STRING.get())) {
+            remove();
+            return;
         }
         LivingEntity bound = getEntityAttachedTo();
         if (bound != null) {
@@ -67,10 +60,6 @@ public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
                 		remove();
                 	}
                 }
-                else {
-                	dragTarget(bound, vecToOwner.normalize().scale(1));
-                	bound.fallDistance = 0;
-                }
             }
         }
     }
@@ -80,11 +69,69 @@ public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
     }
     
     @Override
+    protected boolean moveToBlockAttached() {   
+        if (super.moveToBlockAttached()) {
+            LivingEntity owner = getOwner();
+            Vector3d vecFromOwner = position().subtract(owner.position());
+            if (vecFromOwner.lengthSqr() > 4) {
+                Vector3d grappleVec = vecFromOwner.normalize().scale(2);
+                Entity entity = owner;
+                if (stand == null && owner instanceof StandEntity) {
+                	stand = (StandEntity) owner;
+                }
+                if (stand != null) {
+                    LivingEntity user = userStandPower.getUser();
+                    if (user != null) {
+                    	entity = user;
+                    }
+                }
+                entity = entity.getRootVehicle();
+                entity.setDeltaMovement(grappleVec);
+                entity.fallDistance = 0;
+            }
+            else if (!level.isClientSide()) {
+            	remove();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected boolean moveToEntityAttached() {
+        if (super.moveToEntityAttached()) {
+            LivingEntity owner = getOwner();
+            Vector3d vecFromOwner = position().subtract(owner.position());
+            if (vecFromOwner.lengthSqr() > 4) {
+                Vector3d grappleVec = vecFromOwner.normalize().scale(1.5);
+                Entity entity = owner;
+                if (stand == null && owner instanceof StandEntity) {
+                    stand = (StandEntity) owner;
+                }
+                if (stand != null) {
+                    LivingEntity user = userStandPower.getUser();
+                    if (user != null) {
+                        entity = user;
+                    }
+                }
+                entity = entity.getRootVehicle();
+                entity.setDeltaMovement(grappleVec);
+                entity.fallDistance = 0;
+            }
+            else if (!level.isClientSide()) {
+                remove();
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
 	public boolean isBodyPart() {
         return true;
     }
 
-    private static final Vector3d OFFSET = new Vector3d(-0.3D, -0.2, 0.4D);
+    private static final Vector3d OFFSET = new Vector3d(-0.22D, -0.75D, 0.25D);
     @Override
     protected Vector3d getOwnerRelativeOffset() {
         return OFFSET;
@@ -92,7 +139,7 @@ public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
 
     @Override
 	public int ticksLifespan() {
-        return getEntityAttachedTo() == null ? 40 : Integer.MAX_VALUE;
+        return getEntityAttachedTo() == null && !getBlockPosAttachedTo().isPresent() ? 40 : Integer.MAX_VALUE;
     }
     
     @Override
@@ -131,6 +178,16 @@ public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
     
     @Override
     protected void updateMotionFlags() {}
+
+    @Override
+    protected void afterBlockHit(BlockRayTraceResult blockRayTraceResult, boolean brokenBlock) {
+        if (!brokenBlock && !bindEntities) {
+            if (!getBlockPosAttachedTo().isPresent()) {
+                playSound(InitSounds.STONE_FREE_GRAPPLE_CATCH.get(), 1.0F, 1.0F);
+                attachToBlockPos(blockRayTraceResult.getBlockPos());
+            }
+        }
+    }
 
     @Override
     protected void defineSynchedData() {

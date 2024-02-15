@@ -1,11 +1,15 @@
 package com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound;
 
 import com.danielgamer321.rotp_sf.init.InitEntities;
+import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.danielgamer321.rotp_sf.init.InitStands;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
@@ -35,13 +39,31 @@ public class SFExtendedPunchEntity extends OwnerBoundProjectileEntity {
     }
 
     @Override
+    protected void afterBlockHit(BlockRayTraceResult blockRayTraceResult, boolean blockDestroyed) {
+        playSound(InitSounds.STONE_FREE_PUNCH_LIGHT.get(), 1.0F, 1.0F);
+        setIsRetracting(true);
+    }
+
+    @Override
+    protected boolean hurtTarget(Entity target, LivingEntity owner) {
+        playSound(InitSounds.STONE_FREE_PUNCH_LIGHT.get(), 1.0F, 1.0F);
+        return super.hurtTarget(target, owner);
+    }
+
+    @Override
+    protected void afterEntityHit(EntityRayTraceResult entityRayTraceResult, boolean entityHurt) {
+        super.afterEntityHit(entityRayTraceResult, entityHurt);
+        setIsRetracting(true);
+    }
+
+    @Override
 	public int ticksLifespan() {
         return InitStands.STONE_FREE_EXTENDED_PUNCH.get().getStandActionTicks(null, null);
     }
     
     @Override
     protected float movementSpeed() {
-        return 0.3F;
+        return 1.5F;
     }
     
     @Override
@@ -51,7 +73,7 @@ public class SFExtendedPunchEntity extends OwnerBoundProjectileEntity {
     
     @Override
     protected float retractSpeed() {
-        return movementSpeed() * 3F;
+        return 1.5F;
     }
     
     @Override
@@ -59,7 +81,7 @@ public class SFExtendedPunchEntity extends OwnerBoundProjectileEntity {
         return true;
     }
 
-    private static final Vector3d OFFSET = new Vector3d(-0.3, -0.2, 0.55);
+    private static final Vector3d OFFSET = new Vector3d(-0.3D, -0.2D, 0.25D);
     @Override
     protected Vector3d getOwnerRelativeOffset() {
         return OFFSET;

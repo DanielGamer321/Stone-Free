@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 public class SFExtendedPunchRenderer extends ExtendingEntityRenderer<SFExtendedPunchEntity, SFExtendedPunchModel> {
 
     public SFExtendedPunchRenderer(EntityRendererManager renderManager) {
-        super(renderManager, new SFExtendedPunchModel(), new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "textures/entity/projectiles/sf_extended_punch.png"));
+        super(renderManager, new SFExtendedPunchModel(), new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "textures/entity/projectiles/sf_strings.png"));
     }
 
 }

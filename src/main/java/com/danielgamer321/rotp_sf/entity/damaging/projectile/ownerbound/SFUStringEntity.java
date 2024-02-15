@@ -1,11 +1,14 @@
 package com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound;
 
+import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
 import com.danielgamer321.rotp_sf.init.InitEntities;
 import com.danielgamer321.rotp_sf.init.InitSounds;
+import com.danielgamer321.rotp_sf.power.impl.stand.type.StoneFreeStandType;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 import com.github.standobyte.jojo.init.ModStatusEffects;
+import com.github.standobyte.jojo.power.impl.stand.IStandPower;
+import com.github.standobyte.jojo.util.mc.damage.DamageUtil;
 import com.github.standobyte.jojo.util.mod.JojoModUtil;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -15,54 +18,26 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-public class SFStringEntity extends OwnerBoundProjectileEntity {
+public class SFUStringEntity extends OwnerBoundProjectileEntity {
+    private LivingEntity user;
+    private IStandPower userStandPower;
     private float yRotOffset;
     private float xRotOffset;
-    private boolean isCapture;
+    private boolean isBinding;
     private boolean dealtDamage;
     private float knockback = 0;
 
-    public SFStringEntity(World world, LivingEntity entity, float angleXZ, float angleYZ, boolean isCapture) {
-        super(InitEntities.SF_STRING.get(), entity, world);
+    public SFUStringEntity(World world, LivingEntity entity, IStandPower userStand, float angleXZ, float angleYZ, boolean isBinding) {
+        super(InitEntities.SFU_STRING.get(), entity, world);
+        this.user = entity;
+        this.userStandPower = userStand;
         this.yRotOffset = angleXZ;
         this.xRotOffset = angleYZ;
-        this.isCapture = isCapture;
-    }
-    
-    public SFStringEntity(EntityType<? extends SFStringEntity> entityType, World world) {
-        super(entityType, world);
+        this.isBinding = isBinding;
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        if (!isAlive()) {
-            return;
-        }
-        if (isCapture) {
-            LivingEntity bound = getEntityAttachedTo();
-            if (bound != null) {
-                LivingEntity owner = getOwner();
-                if (!bound.isAlive()) {
-                    if (!level.isClientSide()) {
-                        remove();
-                    }
-                }
-                else {
-                    Vector3d vecToOwner = owner.position().subtract(bound.position());
-                    double length = vecToOwner.length();
-                    if (length < 2) {
-                        if (!level.isClientSide()) {
-                            isCapture = false;
-                        }
-                    }
-                    else {
-                        dragTarget(bound, vecToOwner.normalize().scale(1));
-                        bound.fallDistance = 0;
-                    }
-                }
-            }
-        }
+    public SFUStringEntity(EntityType<? extends SFUStringEntity> entityType, World world) {
+        super(entityType, world);
     }
 
     @Override
@@ -70,22 +45,31 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
         return true;
     }
     
-    public boolean isCapture() {
-        return isCapture;
+    public boolean isBinding() {
+        return isBinding;
     }
     
     @Override
     public float getBaseDamage() {
-        return 0.30769231F;
+        return isBinding ? 0.30769231F : 2F;
     }
     
     public void addKnockback(float knockback) {
         this.knockback = knockback;
     }
+
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        if (!level.isClientSide()) {
+//            user.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(playerUtilCap -> playerUtilCap.available());
+//            ((StoneFreeStandType<?>) userStandPower.getType()).available(userStandPower);
+        }
+    }
     
     @Override
     protected boolean hurtTarget(Entity target, LivingEntity owner) {
-        if (getEntityAttachedTo() == null) {
+        if (getEntityAttachedTo() == null && isBinding) {
             if (target instanceof LivingEntity) {
                 LivingEntity livingTarget = (LivingEntity) target;
                 if (!JojoModUtil.isTargetBlocking(livingTarget)) {
@@ -108,12 +92,20 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
         if (entityHurt) {
             dealtDamage = true;
             Entity target = entityRayTraceResult.getEntity();
-            if (target instanceof LivingEntity) {
-                LivingEntity livingTarget = (LivingEntity) target;
-                if (!JojoModUtil.isTargetBlocking(livingTarget)) {
-                    attachToEntity(livingTarget);
-                    livingTarget.addEffect(new EffectInstance(ModStatusEffects.IMMOBILIZE.get(), ticksLifespan() - tickCount));
+            if (isBinding) {
+                if (target instanceof LivingEntity) {
+                    LivingEntity livingTarget = (LivingEntity) target;
+                    if (!JojoModUtil.isTargetBlocking(livingTarget)) {
+                        attachToEntity(livingTarget);
+                        livingTarget.addEffect(new EffectInstance(ModStatusEffects.IMMOBILIZE.get(), ticksLifespan() - tickCount));
+                    }
                 }
+            }
+            else {
+                if (knockback > 0 && target instanceof LivingEntity) {
+                    DamageUtil.knockback((LivingEntity) target, knockback, yRot);
+                }
+                setIsRetracting(true);
             }
         }
     }
@@ -131,7 +123,7 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
     @Override
     public int ticksLifespan() {
         int ticks = super.ticksLifespan();
-        if (isAttachedToAnEntity()) {
+        if (isBinding && isAttachedToAnEntity()) {
             ticks += 10;
         }
         return ticks;
@@ -147,7 +139,7 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
         return true;
     }
     
-    private static final Vector3d FRONT_OFFSET = new Vector3d(-0.3D, 0.1D, 0.4D);
+    private static final Vector3d FRONT_OFFSET = new Vector3d(-0.22D, -0.47D, 0.25D);
 
     @Override
     protected Vector3d getXRotOffset() {
@@ -164,7 +156,7 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
         super.writeSpawnData(buffer);
         buffer.writeFloat(yRotOffset);
         buffer.writeFloat(xRotOffset);
-        buffer.writeBoolean(isCapture);
+        buffer.writeBoolean(isBinding);
     }
 
     @Override
@@ -172,6 +164,6 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
         super.readSpawnData(additionalData);
         this.yRotOffset = additionalData.readFloat();
         this.xRotOffset = additionalData.readFloat();
-        this.isCapture = additionalData.readBoolean();
+        this.isBinding = additionalData.readBoolean();
     }
 }

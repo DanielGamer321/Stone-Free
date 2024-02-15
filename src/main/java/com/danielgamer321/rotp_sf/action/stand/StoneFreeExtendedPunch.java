@@ -4,8 +4,11 @@ import javax.annotation.Nullable;
 
 import com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound.SFExtendedPunchEntity;
 import com.danielgamer321.rotp_sf.entity.stand.stands.StoneFreeEntity;
+import com.danielgamer321.rotp_sf.init.InitStands;
+import com.github.standobyte.jojo.action.Action;
 import com.github.standobyte.jojo.action.ActionConditionResult;
 import com.github.standobyte.jojo.action.ActionTarget;
+import com.github.standobyte.jojo.action.stand.StandAction;
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
@@ -17,6 +20,25 @@ public class StoneFreeExtendedPunch extends StandEntityAction {
 
     public StoneFreeExtendedPunch(StandEntityAction.Builder builder) {
         super(builder);
+    }
+
+    @Override
+    protected Action<IStandPower> replaceAction(IStandPower power, ActionTarget target) {
+        if (!(power.isActive() && power.getStandManifestation() instanceof StandEntity)) {
+            return InitStands.STONE_FREE_USER_STRING_PICK.get();
+        }
+        else {
+            StandEntity stand = (StandEntity) power.getStandManifestation();
+            if (stand.isArmsOnlyMode()) {
+                return InitStands.STONE_FREE_USER_STRING_PICK.get();
+            }
+        }
+        return super.replaceAction(power, target);
+    }
+
+    @Override
+    public StandAction[] getExtraUnlockable() {
+        return new StandAction[] { InitStands.STONE_FREE_USER_STRING_PICK.get() };
     }
 
     @Override
