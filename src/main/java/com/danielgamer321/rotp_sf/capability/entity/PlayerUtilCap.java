@@ -70,7 +70,7 @@ public class PlayerUtilCap {
     }
 
     public boolean canPlaceBarrier(IStandPower power) {
-        return getPlacedBarriersCount() < StoneFreeUserBarrier.getMaxBarriersPlaceable(power);
+        return fixPlacedBarriersCount() < StoneFreeUserBarrier.getMaxBarriersPlaceable(power);
     }
 
     public void createUserString(IStandPower power) {
@@ -89,7 +89,7 @@ public class PlayerUtilCap {
     }
 
     public boolean hasBarrierAttached() {
-        return getPlacedBarriersCount() > 0 ||
+        return fixPlacedBarriersCount() > 0 ||
                 stringToUser != null && stringToUser.isAlive() && stringToUser != stringFromStand;
     }
 
