@@ -3,6 +3,10 @@
     "subtitle": "rotp_sf.subtitle.stone_free_name",
     "sounds": [ "rotp_sf:stand_user/jolyne_stone_free", "rotp_sf:stand_user/jolyne_stone_free_2", "rotp_sf:stand_user/jolyne_stone_free_3", "rotp_sf:stand_user/jolyne_stone_free_4", "rotp_sf:stand_user/jolyne_stone_free_5" ]
   },
+  "stone_free_summon": {
+    "subtitle": "jojo.subtitle.stand_summon",
+    "sounds": [ "rotp_sf:stand/stone_free_summon" ]
+  },
   "stone_free_punch_light": {
     "subtitle": "jojo.subtitle.stand_attack_light",
     "sounds": [ "rotp_sf:stand/stone_free_punch_light" ]
