@@ -18,7 +18,8 @@ public class InitSounds {
     public static final RegistryObject<SoundEvent> JOLYNE_STONE_FREE = SOUNDS.register("jolyne_stone_free",
             () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "jolyne_stone_free")));
 
-    public static final Supplier<SoundEvent> STONE_FREE_SUMMON = ModSounds.STAND_SUMMON_DEFAULT;
+    public static final Supplier<SoundEvent> STONE_FREE_SUMMON = SOUNDS.register("stone_free_summon",
+            () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_summon")));
     
     public static final Supplier<SoundEvent> STONE_FREE_UNSUMMON = ModSounds.STAND_UNSUMMON_DEFAULT;
     
