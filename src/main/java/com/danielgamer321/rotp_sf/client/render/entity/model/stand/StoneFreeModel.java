@@ -1,5 +1,7 @@
 package com.danielgamer321.rotp_sf.client.render.entity.model.stand;
 
+import javax.annotation.Nullable;
+
 import com.danielgamer321.rotp_sf.entity.stand.stands.StoneFreeEntity;
 import com.github.standobyte.jojo.action.stand.StandEntityAction;
 import com.github.standobyte.jojo.client.render.entity.model.stand.HumanoidStandModel;
@@ -120,13 +122,13 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 	}
 
 	@Override
-	public void prepareMobModel(StoneFreeEntity entity, float walkAnimPos, float walkAnimSpeed, float partialTick) {
+	public void prepareMobModel(@Nullable StoneFreeEntity entity, float walkAnimPos, float walkAnimSpeed, float partialTick) {
 		super.prepareMobModel(entity, walkAnimPos, walkAnimSpeed, partialTick);
 		if (foreArm != null) {
-			foreArm.visible = entity.hasForeArm();
+			foreArm.visible = entity == null || entity.hasForeArm();
 		}
 		if (shortForeArm != null) {
-			shortForeArm.visible = entity.hasShortForeArm();
+			shortForeArm.visible = entity != null && entity.hasShortForeArm();
 		}
 	}
 
