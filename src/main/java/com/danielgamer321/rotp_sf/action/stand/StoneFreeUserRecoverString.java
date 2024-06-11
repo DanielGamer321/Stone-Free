@@ -21,6 +21,6 @@ public class StoneFreeUserRecoverString extends StandAction {
         if (!grapple) {
             return ActionConditionResult.NEGATIVE;
         }
-        return ActionConditionResult.POSITIVE;
+        return super.checkSpecificConditions(user, power, target);
     }
 }

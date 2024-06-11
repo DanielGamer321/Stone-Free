@@ -51,14 +51,14 @@ public class StoneFreeStringCapture extends StandEntityActionModifier {
                     SoundCategory.AMBIENT, 1.0F, 1.0F, StandUtil::playerCanHearStands);
             for (int i = 0; i < n; i++) {
                 Vector2f rotOffsets = MathUtil.xRotYRotOffsets((double) i / (double) n * Math.PI * 2, 10);
-                addProjectile(world, userPower, standEntity, rotOffsets.y, rotOffsets.x, isCapture);
+                addProjectile(world, standEntity, rotOffsets.y, rotOffsets.x, isCapture);
             }
-            addProjectile(world, userPower, standEntity, 0, 0, isCapture);
+            addProjectile(world, standEntity, 0, 0, isCapture);
             stoneFree.setCapture(false);
         }
     }
 
-    private void addProjectile(World world, IStandPower standPower, StandEntity standEntity, float yRotDelta, float xRotDelta, boolean isBinding) {
+    private void addProjectile(World world, StandEntity standEntity, float yRotDelta, float xRotDelta, boolean isBinding) {
         SFStringEntity string = new SFStringEntity(world, standEntity, yRotDelta, xRotDelta, isBinding);
         string.setLifeSpan(24);
         standEntity.addProjectile(string);

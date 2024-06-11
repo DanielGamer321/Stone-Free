@@ -42,11 +42,6 @@ public class SFBarriersNet {
 		placedBarriers.put(barrier, generateShootingPoints(barrier));
 		onUpdate();
 	}
-
-	public void addNegative(SFUBarrierEntity barrier) {
-		barriersRemoved.put(barrier, generateShootingPoints(barrier));
-		onUpdate();
-	}
 	
 	private static final double SHOOTING_POINTS_GAP = 8;
 	private ShootingPoints generateShootingPoints(SFUBarrierEntity entity) {
@@ -95,10 +90,6 @@ public class SFBarriersNet {
         return placedBarriers.keySet().stream()
                 .flatMap(barrier -> barrier.wasAlertedAt().map(point -> Stream.of(point)).orElse(Stream.empty()));
 	}
-    public enum PointsChoice {
-    	RANDOM,
-    	CLOSEST
-    }
 
     private class ShootingPoints {
     	private final List<Vector3d> shootingPoints;

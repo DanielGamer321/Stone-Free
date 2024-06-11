@@ -39,6 +39,7 @@ public class ClientInit {
         RenderingRegistry.registerEntityRenderingHandler(InitEntities.SF_GRAPPLING_STRING.get(), SFGrapplingStringRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(InitEntities.SFU_GRAPPLING_STRING.get(), SFUGrapplingStringRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(InitEntities.SFU_BARRIER.get(), SFUBarrierRenderer::new);
+
         RenderingRegistry.registerEntityRenderingHandler(AddonStands.STONE_FREE.getEntityType(), StoneFreeRenderer::new);
 
         event.enqueueWork(() -> {

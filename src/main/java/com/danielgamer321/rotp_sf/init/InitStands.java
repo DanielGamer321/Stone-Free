@@ -14,10 +14,11 @@ import com.github.standobyte.jojo.power.impl.stand.StandInstance.StandPart;
 import com.github.standobyte.jojo.power.impl.stand.stats.StandStats;
 import com.github.standobyte.jojo.power.impl.stand.type.StandType;
 
+import com.github.standobyte.jojo.util.mod.StoryPart;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
-import static com.github.standobyte.jojo.init.power.stand.ModStandsInit.*;
+import static com.github.standobyte.jojo.init.ModEntityTypes.ENTITIES;
 
 public class InitStands {
     @SuppressWarnings("unchecked")
@@ -74,7 +75,7 @@ public class InitStands {
     public static final RegistryObject<StandEntityAction> STONE_FREE_STRING_BIND = ACTIONS.register("stone_free_attack_binding",
             () -> new StoneFreeStringBind(new StandEntityAction.Builder().staminaCost(35).standPerformDuration(24).cooldown(24, 100, 0.5F)
                     .standSound(InitSounds.STONE_FREE_STRING)
-                    .resolveLevelToUnlock(2)
+                    .resolveLevelToUnlock(1)
                     .partsRequired(StandPart.ARMS)));
 
     public static final RegistryObject<StandAction> STONE_FREE_USER_STRING_BIND = ACTIONS.register("stone_free_user_attack_binding",
@@ -125,36 +126,35 @@ public class InitStands {
     public static final EntityStandRegistryObject<StoneFreeStandType<StandStats>, StandEntityType<StoneFreeEntity>> STAND_STONE_FREE =
             new EntityStandRegistryObject<>("stone_free",
                     STANDS,
-                    () -> new StoneFreeStandType.Builder<StandStats>()
-                    .color(0x80DEF7)
-                    .storyPartName(PART_6_NAME)
-                    .leftClickHotbar(
-                            STONE_FREE_PUNCH.get(),
-                            STONE_FREE_BARRAGE.get(),
-                            STONE_FREE_STRING_BIND.get(),
-                            STONE_FREE_EXTENDED_PUNCH.get()
+                    () -> new StoneFreeStandType.Builder<>()
+                            .color(0x80DEF7)
+                            .storyPartName(StoryPart.STONE_OCEAN.getName())
+                            .leftClickHotbar(
+                                    STONE_FREE_PUNCH.get(),
+                                    STONE_FREE_BARRAGE.get(),
+                                    STONE_FREE_STRING_BIND.get(),
+                                    STONE_FREE_EXTENDED_PUNCH.get()
                             )
-                    .rightClickHotbar(
-                            STONE_FREE_BLOCK.get(),
-                            STONE_FREE_USER_GRAPPLE.get(),
-                            STONE_FREE_USER_BARRIER.get()
+                            .rightClickHotbar(
+                                    STONE_FREE_BLOCK.get(),
+                                    STONE_FREE_USER_GRAPPLE.get(),
+                                    STONE_FREE_USER_BARRIER.get()
                             )
-                    .defaultStats(StandStats.class, new StandStats.Builder()
-                            .tier(5)
-                            .power(14.0)
-                            .speed(12.0)
-                            .range(2.0, 10.0)
-                            .durability(14.0)
-                            .precision(10.0)
-                            .randomWeight(2)
+                            .defaultStats(StandStats.class, new StandStats.Builder()
+                                    .power(14.0)
+                                    .speed(12.0)
+                                    .range(2.0, 10.0)
+                                    .durability(14.0)
+                                    .precision(10.0)
+                                    .randomWeight(2)
                             )
-                    .addSummonShout(InitSounds.JOLYNE_STONE_FREE)
-                    .addOst(InitSounds.STONE_FREE_OST)
-                    .build(),
+                            .addSummonShout(InitSounds.JOLYNE_STONE_FREE)
+                            .addOst(InitSounds.STONE_FREE_OST)
+                            .build(),
 
-                    InitEntities.ENTITIES,
+                    ENTITIES,
                     () -> new StandEntityType<StoneFreeEntity>(StoneFreeEntity::new, 0.65F, 1.95F)
-                    .summonSound(InitSounds.STONE_FREE_SUMMON)
-                    .unsummonSound(InitSounds.STONE_FREE_UNSUMMON))
-            .withDefaultStandAttributes();
+                            .summonSound(InitSounds.STONE_FREE_SUMMON)
+                            .unsummonSound(InitSounds.STONE_FREE_UNSUMMON))
+                    .withDefaultStandAttributes();
 }

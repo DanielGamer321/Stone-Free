@@ -29,6 +29,13 @@ public class StoneFreeEntity extends StandEntity {
     }
 
     @Override
+    public void playStandSummonSound() {
+        if (!isArmsOnlyMode()) {
+            super.playStandSummonSound();
+        }
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         entityData.define(CAN_CAPTURE, true);

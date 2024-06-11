@@ -1,21 +1,16 @@
 package com.danielgamer321.rotp_sf.action.stand;
 
-import com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound.SFStringEntity;
-import com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound.SFGrapplingStringEntity;
-import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.action.stand.StandEntityHeavyAttack;
 import com.github.standobyte.jojo.action.stand.punch.StandEntityPunch;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.util.mc.damage.StandEntityDamageSource;
+
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-
-import java.util.Optional;
 
 public class StoneFreeHeavyPunch extends StandEntityHeavyAttack {
 
@@ -27,7 +22,6 @@ public class StoneFreeHeavyPunch extends StandEntityHeavyAttack {
     @Override
     public void standTickWindup(World world, StandEntity standEntity, IStandPower userPower, StandEntityTask task) {
         int ticksLeft = task.getTicksLeft();
-        double range = standEntity.getRangeEfficiency();
         if (ticksLeft == 2) {
             Vector3d targetPos = task.getTarget().getTargetPos(true);
             Vector3d slideVec;

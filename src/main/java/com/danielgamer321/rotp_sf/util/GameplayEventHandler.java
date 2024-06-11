@@ -34,9 +34,8 @@ public class GameplayEventHandler {
         LivingEntity target = event.getEntityLiving();
         if (!dmgSource.isBypassArmor() && dmgSource.getDirectEntity() != null) {
             IStandPower.getStandPowerOptional(target).ifPresent(power -> {
-                if (
-                        IStandPower.getStandPowerOptional(target).map(stand ->
-                                stand.hasPower() && stand.getType() == AddonStands.STONE_FREE.getStandType()).orElse(false) && ((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power) > 0) {
+                if (IStandPower.getStandPowerOptional(target).map(stand ->
+                        stand.hasPower() && stand.getType() == AddonStands.STONE_FREE.getStandType()).orElse(false) && ((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power) > 0) {
                     event.setAmount(((StoneFreeStandType<?>) power.getType()).SFReduceDamageAmount(
                             power, power.getUser(), dmgSource, event.getAmount()));
                 }

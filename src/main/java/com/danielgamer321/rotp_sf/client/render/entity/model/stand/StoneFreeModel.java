@@ -13,7 +13,7 @@ import com.github.standobyte.jojo.util.general.MathUtil;
 
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-// Made with Blockbench 4.6.5
+// Made with Blockbench 4.8.3
 // Exported for Minecraft version 1.15 - 1.16 with Mojang mappings
 // Paste this class into your mod and generate all required imports
 
@@ -32,9 +32,11 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 		texWidth = 128;
 		texHeight = 128;
 
+		head.texOffs(0, 22).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.1F, false);
+		head.texOffs(4, 28).addBox(-0.8F, -8.2F, -4.0F, 1.0F, 1.0F, 1.0F, 0.1F, false);
+		head.texOffs(0, 16).addBox(-4.5F, -4.5F, -4.05F, 9.0F, 2.0F, 4.0F, 0.1F, false);
 		head.texOffs(24, 4).addBox(-3.0F, -4.0F, -4.125F, 2.0F, 1.0F, 1.0F, 0.0F, false);
 		head.texOffs(24, 6).addBox(1.0F, -4.0F, -4.125F, 2.0F, 1.0F, 1.0F, 0.0F, true);
-		head.texOffs(0, 16).addBox(-4.5F, -4.5F, -4.05F, 9.0F, 2.0F, 4.0F, 0.1F, false);
 		head.texOffs(34, 0).addBox(-2.0F, -8.5F, -4.0F, 1.0F, 6.0F, 8.0F, 0.1F, false);
 		head.texOffs(34, 14).addBox(-2.6F, -8.5F, -4.0F, 1.0F, 6.0F, 8.0F, 0.1F, false);
 		head.texOffs(34, 14).addBox(-2.0F, -8.5F, 3.5F, 1.0F, 6.0F, 1.0F, 0.1F, false);
@@ -60,7 +62,9 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 		head.texOffs(4, 4).addBox(-5.0F, -4.5F, -0.5F, 1.0F, 1.0F, 1.0F, -0.1F, false);
 		head.texOffs(4, 0).addBox(4.0F, -4.5F, -0.5F, 1.0F, 1.0F, 1.0F, -0.1F, false);
 
+		torso.texOffs(0, 48).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.1F, false);
 		torso.texOffs(24, 73).addBox(-2.5F, 4.0F, -2.1F, 5.0F, 6.0F, 1.0F, 0.0F, false);
+		torso.texOffs(24, 57).addBox(-2.5F, 4.0F, -2.1F, 5.0F, 6.0F, 1.0F, 0.1F, false);
 
 		chest = new ModelRenderer(this);
 		chest.setPos(0.0F, 2.75F, -0.6F);
@@ -69,6 +73,7 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 		chest.texOffs(20, 64).addBox(-3.5F, -1.91F, -1.5F, 7.0F, 3.0F, 1.0F, 0.4F, false);
 
 		leftArm.texOffs(95, 81).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 6.0F, 4.0F, 0.0F, false);
+		leftArm.texOffs(111, 81).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 6.0F, 4.0F, 0.1F, false);
 		leftArm.texOffs(105, 92).addBox(-1.5F, 2.5F, 1.5F, 2.0F, 2.0F, 1.0F, 0.0F, false);
 		leftArm.texOffs(106, 74).addBox(-3.0F, -3.0F, -3.0F, 5.0F, 5.0F, 6.0F, -0.75F, true);
 
@@ -78,12 +83,14 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 		leftArmJointSlim.texOffs(96, 75).addBox(-1.0F, -1.5F, -1.5F, 2.0F, 3.0F, 3.0F, -0.1F, true);
 
 		leftForeArm.texOffs(95, 91).addBox(-2.0F, 0.0F, -2.0F, 3.0F, 6.0F, 4.0F, -0.001F, true);
+		leftForeArm.texOffs(111, 91).addBox(-2.0F, -0.1F, -2.0F, 3.0F, 4.0F, 4.0F, 0.099F, true);
 		leftForeArm.texOffs(103, 74).addBox(0.5F, 5.1F, -2.0F, 1.0F, 1.0F, 1.0F, -0.2F, true);
 		leftForeArm.texOffs(107, 74).addBox(0.5F, 5.1F, -1.0F, 1.0F, 1.0F, 1.0F, -0.2F, true);
 		leftForeArm.texOffs(103, 76).addBox(0.5F, 5.1F, 0.0F, 1.0F, 1.0F, 1.0F, -0.2F, true);
 		leftForeArm.texOffs(107, 76).addBox(0.5F, 5.1F, 1.0F, 1.0F, 1.0F, 1.0F, -0.2F, true);
 
 		rightArm.texOffs(63, 81).addBox(-1.0F, -2.0F, -2.0F, 3.0F, 6.0F, 4.0F, 0.0F, false);
+		rightArm.texOffs(79, 81).addBox(-1.0F, -2.0F, -2.0F, 3.0F, 6.0F, 4.0F, 0.1F, false);
 		rightArm.texOffs(73, 92).addBox(-0.5F, 2.5F, 1.5F, 2.0F, 2.0F, 1.0F, 0.0F, false);
 		rightArm.texOffs(74, 74).addBox(-2.0F, -3.0F, -3.0F, 5.0F, 5.0F, 6.0F, -0.75F, false);
 
@@ -96,6 +103,7 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 		foreArm.setPos(6.0F, 18.0F, 0.0F);
 		rightForeArm.addChild(foreArm);
 		foreArm.texOffs(63, 91).addBox(-7.0F, -18.0F, -2.0F, 3.0F, 6.0F, 4.0F, -0.001F, false);
+		foreArm.texOffs(79, 91).addBox(-7.0F, -18.1F, -2.0F, 3.0F, 4.0F, 4.0F, 0.099F, false);
 		foreArm.texOffs(71, 74).addBox(-7.5F, -12.9F, 1.0F, 1.0F, 1.0F, 1.0F, -0.2F, false);
 		foreArm.texOffs(75, 74).addBox(-7.5F, -12.9F, 0.0F, 1.0F, 1.0F, 1.0F, -0.2F, false);
 		foreArm.texOffs(71, 76).addBox(-7.5F, -12.9F, -1.0F, 1.0F, 1.0F, 1.0F, -0.2F, false);
@@ -104,21 +112,23 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 		shortForeArm = new ModelRenderer(this);
 		shortForeArm.setPos(6.0F, 19.0F, 7.0F);
 		rightForeArm.addChild(shortForeArm);
-		shortForeArm.texOffs(79, 91).addBox(-7.0F, -19.0F, -9.0F, 3.0F, 2.0F, 4.0F, -0.001F, false);
-		shortForeArm.texOffs(84, 97).addBox(-6.0F, -17.0F, -7.5F, 1.0F, 4.0F, 1.0F, 0.0F, false);
+		shortForeArm.texOffs(79, 101).addBox(-7.0F, -19.0F, -9.0F, 3.0F, 2.0F, 4.0F, -0.001F, false);
 
+		leftLeg.texOffs(112, 108).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.1F, false);
 		leftLeg.texOffs(80, 119).addBox(0.1F, 4.5F, -2.5F, 1.0F, 2.0F, 1.0F, 0.0F, false);
-		leftLeg.texOffs(80, 122).addBox(-0.4F, 4.0F, -2.5F, 1.0F, 3.0F, 1.0F, 0.0F, false);
+		leftLeg.texOffs(112, 122).addBox(-0.4F, 4.0F, -2.5F, 1.0F, 3.0F, 1.0F, 0.0F, false);
 		leftLeg.texOffs(76, 119).addBox(-0.9F, 4.5F, -2.5F, 1.0F, 2.0F, 1.0F, 0.0F, false);
 
-		leftLegJoint = new ModelRenderer(this);
-		leftLegJoint.setPos(0.0F, 6.0F, 0.0F);
-		leftLeg.addChild(leftLegJoint);
-		leftLegJoint.texOffs(96, 102).addBox(-1.5F, -1.5F, -1.5F, 3.0F, 3.0F, 3.0F, -0.1F, true);
+		leftLowerLeg.texOffs(117, 117).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 4.0F, 1.0F, 0.099F, false);
+		leftLowerLeg.texOffs(112, 123).addBox(-2.0F, 5.0F, -2.0F, 4.0F, 1.0F, 4.0F, 0.099F, false);
 
+		rightLeg.texOffs(80, 108).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.1F, false);
 		rightLeg.texOffs(80, 122).addBox(-0.6F, 4.0F, -2.5F, 1.0F, 3.0F, 1.0F, 0.0F, false);
 		rightLeg.texOffs(80, 119).addBox(-0.1F, 4.5F, -2.5F, 1.0F, 2.0F, 1.0F, 0.0F, false);
 		rightLeg.texOffs(76, 119).addBox(-1.1F, 4.5F, -2.5F, 1.0F, 2.0F, 1.0F, 0.0F, false);
+
+		rightLowerLeg.texOffs(85, 117).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 4.0F, 1.0F, 0.099F, false);
+		rightLowerLeg.texOffs(80, 123).addBox(-2.0F, 5.0F, -2.0F, 4.0F, 1.0F, 4.0F, 0.099F, false);
 	}
 
 	@Override

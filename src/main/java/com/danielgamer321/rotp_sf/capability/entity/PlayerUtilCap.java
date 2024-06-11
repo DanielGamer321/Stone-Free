@@ -26,7 +26,6 @@ public class PlayerUtilCap {
     private SFUBarrierEntity stringFromStand;
     private SFBarriersNet placedBarriers = new SFBarriersNet();
     private SFBarriersNet barriersRemoved = new SFBarriersNet();
-    private boolean newNet = false;
     private boolean userString = true;
     private boolean grapple = false;
 

@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import com.danielgamer321.rotp_sf.RotpStoneFreeAddon;
 import com.danielgamer321.rotp_sf.init.InitEffects;
 import com.github.standobyte.jojo.client.ClientUtil;
+//import com.github.standobyte.jojo.client.standskin.StandSkinsManager;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
@@ -66,6 +67,8 @@ public class StringDecompositionLayer<T extends LivingEntity, M extends EntityMo
             return LAYER_TEXTURES.get(size)[lvl];
         }
         return null;
+//        return StandSkinsManager.getInstance()
+//                .getRemappedResPath(manager -> manager.getStandSkin(entity.getStandSkin()), texPath);
     }
 
 

@@ -34,7 +34,7 @@ public class StoneFreeUserStringAttack extends StandAction {
         if (!userString) {
             return ActionConditionResult.NEGATIVE;
         }
-        return ActionConditionResult.POSITIVE;
+        return super.checkSpecificConditions(user, power, target);
     }
 
     @Override
