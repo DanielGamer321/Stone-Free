@@ -1,7 +1,7 @@
 {
   "effect.rotp_sf.string_decomposition": "String Shortage",
   
-  "entity.rotp_sf.stone_free": "Stone Free",
+  "entity.jojo.stone_free": "Stone Free",
   "entity.rotp_sf.sf_string": "Stone Free's String",
   "entity.rotp_sf.sfu_string": "Stone Free's String",
   "entity.rotp_sf.sfu_string_sweep": "Stone Free's String",
