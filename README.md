@@ -1,4 +1,4 @@
-# ![Stone Free](https://cdn.discordapp.com/attachments/1008097733732745248/1251380482223112275/stone_free.png?ex=666e5e64&is=666d0ce4&hm=13764e7a2fd5da695e83e72b0feeda7f63860d6b1e4a0180c6173bf8c1db1ebd&) Stone Free (Ripples of the Past addon)
+# ![Stone Free](https://github.com/DanielGamer321/Stone-Free/blob/main/src/main/resources/assets/rotp_sf/textures/power/stone_free.png) Stone Free (Ripples of the Past addon)
 An addon mod for [Ripples of the Past](https://github.com/StandoByte/Ripples-of-the-Past), a mod for Minecraft based on JoJo's Bizarre Adventure.
 
 ## Mod developer's (StandoByte) note
