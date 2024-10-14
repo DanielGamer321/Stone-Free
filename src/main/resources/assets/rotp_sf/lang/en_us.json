@@ -1,5 +1,6 @@
 {
   "effect.rotp_sf.string_decomposition": "String Shortage",
+  "effect.rotp_sf.mobius_strip": "Möbius strip",
   
   "entity.jojo.stone_free": "Stone Free",
   "entity.rotp_sf.sf_string": "Stone Free's String",
@@ -29,9 +30,11 @@
   "action.rotp_sf.stone_free_user_grapple_entity": "Hook an entity",
   "action.rotp_sf.stone_free_user_recover_string": "Recover the string",
   "action.rotp_sf.stone_free_grapple_entity": "Hook an entity",
+  "action.rotp_sf.stone_free_user_close_wounds": "Close wounds",
   "action.rotp_sf.stone_free_user_barrier": "Place a Barrier (%s/%s)",
   "action.rotp_sf.stone_free_user_remove_barrier": "Collect all Barriers (%s)",
   "action.rotp_sf.stone_free_user_remove_barrier.shortened": "Collect Barriers",
+  "action.rotp_sf.stone_free_user_mobius_strip": "Möbius strip",
   "jojo.message.action_condition.string_limit": "You can't untangle his body into strings in this state",
   "jojo.message.action_condition.no_barriers": "You have not take out even a barrier to collect",
   "rotp_sf.subtitle.stone_free_name": "\"Stone Free\""

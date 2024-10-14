@@ -34,13 +34,22 @@
   "stone_free_string": {
     "sounds": [ "rotp_sf:stand/stone_free_string", "rotp_sf:stand/stone_free_string_2", "rotp_sf:stand/stone_free_string_3" ]
   },
+  "stone_free_grapple_catch": {
+    "sounds": [ "rotp_sf:stand/stone_free_catch", "rotp_sf:stand/stone_free_barrier_placed", "rotp_sf:stand/stone_free_barrier_placed_2" ]
+  },
+  "stone_free_closing_wound": {
+    "sounds": [ "rotp_sf:stand/stone_free_string" ]
+  },
+  "stone_free_closed_wound": {
+    "sounds": [ "rotp_sf:stand/stone_free_barrier_placed" ]
+  },
   "stone_free_barrier_placed": {
     "sounds": [ "rotp_sf:stand/stone_free_barrier_placed", "rotp_sf:stand/stone_free_barrier_placed_2" ]
   },
   "stone_free_barrier_ripped": {
     "sounds": [ "rotp_sf:stand/stone_free_barrier_ripped" ]
   },
-  "stone_free_grapple_catch": {
-    "sounds": [ "rotp_sf:stand/stone_free_catch", "rotp_sf:stand/stone_free_barrier_placed", "rotp_sf:stand/stone_free_barrier_placed_2" ]
+  "stone_free_mobius_strip": {
+    "sounds": [ "rotp_sf:stand/stone_free_mobius_strip" ]
   }
 }
