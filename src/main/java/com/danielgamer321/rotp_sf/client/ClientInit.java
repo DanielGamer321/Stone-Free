@@ -1,7 +1,7 @@
 package com.danielgamer321.rotp_sf.client;
 
 import com.danielgamer321.rotp_sf.RotpStoneFreeAddon;
-import com.danielgamer321.rotp_sf.client.render.entity.layerrenderer.StringDecompositionLayer;
+import com.danielgamer321.rotp_sf.client.render.entity.layerrenderer.*;
 import com.danielgamer321.rotp_sf.client.render.entity.renderer.damaging.extending.*;
 import com.danielgamer321.rotp_sf.client.render.entity.renderer.stand.StoneFreeRenderer;
 import com.danielgamer321.rotp_sf.client.ui.marker.StoneFreeBarrierDetectionMarker;
@@ -74,6 +74,7 @@ public class ClientInit {
 
     private static <T extends LivingEntity, M extends EntityModel<T>> void addLivingLayers(LivingRenderer<T, M> renderer) {
         renderer.addLayer(new StringDecompositionLayer<>(renderer));
+        renderer.addLayer(new MobiusStripLayer<>(renderer));
     }
 
     private static <T extends LivingEntity, M extends BipedModel<T>> void addBipedLayers(LivingRenderer<T, M> renderer) {

@@ -4,12 +4,9 @@ import com.danielgamer321.rotp_sf.init.InitStands;
 import com.github.standobyte.jojo.action.Action;
 import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.action.stand.StandAction;
-import com.github.standobyte.jojo.action.stand.StandEntityLightAttack;
 import com.github.standobyte.jojo.action.stand.StandEntityMeleeBarrage;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-
-;
 
 public class StoneFreeBarrage extends StandEntityMeleeBarrage {
 

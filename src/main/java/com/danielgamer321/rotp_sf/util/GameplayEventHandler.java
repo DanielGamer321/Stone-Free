@@ -5,9 +5,8 @@ import com.danielgamer321.rotp_sf.init.AddonStands;
 import com.danielgamer321.rotp_sf.init.InitEffects;
 import com.danielgamer321.rotp_sf.power.impl.stand.type.StoneFreeStandType;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-
-import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.power.impl.stand.type.EntityStandType;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;

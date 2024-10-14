@@ -1,15 +1,14 @@
 package com.danielgamer321.rotp_sf.action.stand;
 
-import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
 import com.danielgamer321.rotp_sf.power.impl.stand.type.StoneFreeStandType;
 import com.github.standobyte.jojo.action.ActionConditionResult;
 import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.action.stand.StandAction;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
 
 public class StoneFreeUserRemoveBarrier extends StandAction {
 

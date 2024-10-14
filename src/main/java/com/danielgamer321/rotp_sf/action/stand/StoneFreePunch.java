@@ -8,8 +8,6 @@ import com.github.standobyte.jojo.action.stand.StandEntityLightAttack;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 
-import java.util.function.Supplier;
-
 public class StoneFreePunch extends StandEntityLightAttack {
 
     public StoneFreePunch(StandEntityLightAttack.Builder builder) {

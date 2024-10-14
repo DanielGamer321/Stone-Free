@@ -2,7 +2,7 @@ package com.danielgamer321.rotp_sf.network.packets.fromserver;
 
 import java.util.function.Supplier;
 
-import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
+import com.danielgamer321.rotp_sf.capability.entity.LivingUtilCapProvider;
 import com.github.standobyte.jojo.client.ClientUtil;
 import com.github.standobyte.jojo.network.packets.IModPacketHandler;
 
@@ -38,7 +38,7 @@ public class TrPlacedBarriersCountPacket {
         public void handle(TrPlacedBarriersCountPacket msg, Supplier<NetworkEvent.Context> ctx) {
             Entity entity = ClientUtil.getEntityById(msg.entityId);
             if (entity != null) {
-                entity.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(cap -> cap.setPlacedBarriersCount(msg.barriers));
+                entity.getCapability(LivingUtilCapProvider.CAPABILITY).ifPresent(cap -> cap.setPlacedBarriersCount(msg.barriers));
             }
         }
 

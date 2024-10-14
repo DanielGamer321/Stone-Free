@@ -7,12 +7,14 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import com.danielgamer321.rotp_sf.RotpStoneFreeAddon;
+import com.danielgamer321.rotp_sf.init.AddonStands;
 import com.danielgamer321.rotp_sf.init.InitEffects;
 import com.github.standobyte.jojo.client.ClientUtil;
-//import com.github.standobyte.jojo.client.standskin.StandSkinsManager;
+import com.github.standobyte.jojo.client.standskin.StandSkinsManager;
+import com.github.standobyte.jojo.power.impl.stand.IStandPower;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -48,13 +50,21 @@ public class StringDecompositionLayer<T extends LivingEntity, M extends EntityMo
     public void render(MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight, 
             T entity, float walkAnimPos, float walkAnimSpeed, float partialTick, 
             float ticks, float headYRotation, float headXRotation) {
+        if (!ClientUtil.canSeeStands()) {
+            return;
+        }
         if (!entity.isInvisible()) {
             M model = getParentModel();
-            ResourceLocation texture = getTexture(model, entity);
-            if (texture == null) return;
-            
-            IVertexBuilder vertexBuilder = buffer.getBuffer(RenderType.entityTranslucent(texture));
-            model.renderToBuffer(matrixStack, vertexBuilder, packedLight, LivingRenderer.getOverlayCoords(entity, 0.0F), 1, 1, 1, 1);
+            IStandPower.getStandPowerOptional(entity).ifPresent(stand -> {
+                if (stand.getType() == AddonStands.STONE_FREE.getStandType() && entity.hasEffect(InitEffects.STRING_DECOMPOSITION.get())) {
+                    ResourceLocation texture =  StandSkinsManager.getInstance().getRemappedResPath(manager -> manager
+                            .getStandSkin(stand.getStandInstance().get()), getTexture(model, entity));
+                    if (texture == null) return;
+
+                    IVertexBuilder vertexBuilder = buffer.getBuffer(RenderType.entityTranslucent(texture));
+                    model.renderToBuffer(matrixStack, vertexBuilder, packedLight, LivingRenderer.getOverlayCoords(entity, 0.0F), 1, 1, 1, 1);
+                }
+            });
         }
     }
     
@@ -67,8 +77,6 @@ public class StringDecompositionLayer<T extends LivingEntity, M extends EntityMo
             return LAYER_TEXTURES.get(size)[lvl];
         }
         return null;
-//        return StandSkinsManager.getInstance()
-//                .getRemappedResPath(manager -> manager.getStandSkin(entity.getStandSkin()), texPath);
     }
 
 
@@ -141,18 +149,23 @@ public class StringDecompositionLayer<T extends LivingEntity, M extends EntityMo
             IRenderTypeBuffer buffer, int light, AbstractClientPlayerEntity player, 
             PlayerRenderer playerRenderer) {
         if (player.isSpectator()) return;
-        
+
         PlayerModel<AbstractClientPlayerEntity> model = playerRenderer.getModel();
-        ResourceLocation texture = getTexture(model, player);
-        if (texture == null) return;
-        
-        ClientUtil.setupForFirstPersonRender(model, player);
-        IVertexBuilder vertexBuilder = buffer.getBuffer(RenderType.entityTranslucent(texture));
-        ModelRenderer arm = ClientUtil.getArm(model, side);
-        ModelRenderer armOuter = ClientUtil.getArmOuter(model, side);
-        arm.xRot = 0.0F;
-        arm.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY);
-        armOuter.xRot = 0.0F;
-        armOuter.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY);
+        IStandPower.getStandPowerOptional(player).ifPresent(stand -> {
+            if (stand.getType() == AddonStands.STONE_FREE.getStandType() && player.hasEffect(InitEffects.STRING_DECOMPOSITION.get())) {
+                ResourceLocation texture = StandSkinsManager.getInstance().getRemappedResPath(manager -> manager
+                        .getStandSkin(stand.getStandInstance().get()), getTexture(model, player));
+                if (texture == null) return;
+
+                ClientUtil.setupForFirstPersonRender(model, player);
+                IVertexBuilder vertexBuilder = buffer.getBuffer(RenderType.entityTranslucent(texture));
+                ModelRenderer arm = ClientUtil.getArm(model, side);
+                ModelRenderer armOuter = ClientUtil.getArmOuter(model, side);
+                arm.xRot = 0.0F;
+                arm.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY);
+                armOuter.xRot = 0.0F;
+                armOuter.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY);
+            }
+        });
     }
 }

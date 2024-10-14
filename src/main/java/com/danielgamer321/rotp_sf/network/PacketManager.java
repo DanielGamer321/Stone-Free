@@ -6,8 +6,7 @@ import java.util.function.Predicate;
 import javax.annotation.Nullable;
 
 import com.danielgamer321.rotp_sf.RotpStoneFreeAddon;
-import com.danielgamer321.rotp_sf.network.packets.fromserver.TrPlacedBarriersCountPacket;
-import com.danielgamer321.rotp_sf.network.packets.fromserver.TrBarriersRemovedCountPacket;
+import com.danielgamer321.rotp_sf.network.packets.fromserver.*;
 import com.github.standobyte.jojo.network.packets.IModPacketHandler;
 
 import net.minecraft.entity.Entity;
@@ -41,6 +40,7 @@ public class PacketManager {
         
         registerMessage(channel, new TrPlacedBarriersCountPacket.Handler(),          Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         registerMessage(channel, new TrBarriersRemovedCountPacket.Handler(),          Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        registerMessage(channel, new TrSetMobiusStripPacket.Handler(),          Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
     
     private static <MSG> void registerMessage(SimpleChannel channel, IModPacketHandler<MSG> handler, Optional<NetworkDirection> networkDirection) {

@@ -45,8 +45,7 @@ public class StoneFreeStringBind extends  StandEntityAction {
 
     @Override
     protected ActionConditionResult checkSpecificConditions(LivingEntity user, IStandPower power, ActionTarget target) {
-        int strings = ((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power);
-        if (strings >= 100) {
+        if (((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power) >= 100) {
             return conditionMessage("string_limit");
         }
         return ActionConditionResult.POSITIVE;

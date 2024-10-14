@@ -13,12 +13,14 @@ import com.github.standobyte.jojo.entity.stand.StandEntityTask;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.util.general.MathUtil;
-
 import com.github.standobyte.jojo.util.mc.MCUtil;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.world.World;
+
+import static com.danielgamer321.rotp_sf.action.stand.StoneFreeUserBarrier.MaxVarietyOfBarriers;
 
 public class StoneFreeStringCapture extends StandEntityActionModifier {
 
@@ -33,8 +35,7 @@ public class StoneFreeStringCapture extends StandEntityActionModifier {
     
     @Override
     protected ActionConditionResult checkSpecificConditions(LivingEntity user, IStandPower power, ActionTarget target) {
-        int strings = ((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power);
-        if (strings >= 100) {
+        if (((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power) >= MaxVarietyOfBarriers(user)) {
             return conditionMessage("string_limit");
         }
         return ActionConditionResult.POSITIVE;

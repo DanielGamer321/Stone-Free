@@ -1,6 +1,6 @@
 package com.danielgamer321.rotp_sf.action.stand;
 
-import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
+import com.danielgamer321.rotp_sf.capability.entity.LivingUtilCapProvider;
 import com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound.SFUGrapplingStringEntity;
 import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.danielgamer321.rotp_sf.init.InitStands;
@@ -11,9 +11,9 @@ import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.action.stand.StandAction;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.util.mc.MCUtil;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
@@ -29,7 +29,7 @@ public class StoneFreeUserGrapple extends StandAction {
     @Override
     protected Action<IStandPower> replaceAction(IStandPower power, ActionTarget target) {
         LivingEntity user = power.getUser();
-        boolean grapple = user.getCapability(PlayerUtilCapProvider.CAPABILITY).map(cap -> cap.grapple(user)).orElse(false);
+        boolean grapple = user.getCapability(LivingUtilCapProvider.CAPABILITY).map(cap -> cap.grapple(user)).orElse(false);
         if (grapple) {
             return InitStands.STONE_FREE_USER_RECOVER_STRING.get();
         }
@@ -50,7 +50,7 @@ public class StoneFreeUserGrapple extends StandAction {
     @Override
     protected ActionConditionResult checkSpecificConditions(LivingEntity user, IStandPower power, ActionTarget target) {
         int strings = ((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power);
-        boolean userString = user.getCapability(PlayerUtilCapProvider.CAPABILITY).map(cap -> cap.userString(user)).orElse(false);
+        boolean userString = user.getCapability(LivingUtilCapProvider.CAPABILITY).map(cap -> cap.userString(user)).orElse(false);
         if (strings >= 100) {
             return conditionMessage("string_limit");
         }
@@ -77,9 +77,5 @@ public class StoneFreeUserGrapple extends StandAction {
         List<SFUGrapplingStringEntity> stringLaunched = user.level.getEntitiesOfClass(SFUGrapplingStringEntity.class,
                 user.getBoundingBox().inflate(96), string -> user.is(string.getOwner()));
         return !stringLaunched.isEmpty() ? true : false;
-    }
-
-    private void grappleUnavailable() {
-        return;
     }
 }

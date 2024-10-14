@@ -1,7 +1,7 @@
 package com.danielgamer321.rotp_sf.action.stand;
 
-import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
-import com.danielgamer321.rotp_sf.init.InitStands;
+import com.danielgamer321.rotp_sf.capability.entity.LivingUtilCapProvider;
+import com.danielgamer321.rotp_sf.init.InitEffects;
 import com.danielgamer321.rotp_sf.power.impl.stand.type.StoneFreeStandType;
 import com.github.standobyte.jojo.action.ActionConditionResult;
 import com.github.standobyte.jojo.action.ActionTarget;
@@ -22,7 +22,7 @@ public class StoneFreeUserBarrier extends StandAction {
     @Override
     protected ActionConditionResult checkSpecificConditions(LivingEntity user, IStandPower power, ActionTarget target) {
         int strings = ((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power);
-        boolean canPlaceBarrier = user.getCapability(PlayerUtilCapProvider.CAPABILITY).map(cap -> cap.canPlaceBarrier(power)).orElse(false);
+        boolean canPlaceBarrier = user.getCapability(LivingUtilCapProvider.CAPABILITY).map(cap -> cap.canPlaceBarrier(power)).orElse(false);
         if (!canPlaceBarrier) {
             return conditionMessage("barrier");
         }
@@ -35,14 +35,18 @@ public class StoneFreeUserBarrier extends StandAction {
     @Override
     public void perform(World world, LivingEntity user, IStandPower power, ActionTarget target) {
         if (!world.isClientSide()) {
-//            ((StoneFreeStandType<?>) power.getType()).attachBarrier(target.getBlockPos(), power);
-            user.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(playerUtilCap -> playerUtilCap.attachBarrier(target.getBlockPos(), power));
+            user.getCapability(LivingUtilCapProvider.CAPABILITY).ifPresent(playerUtilCap -> playerUtilCap.attachBarrier(target.getBlockPos(), power));
         }
     }
     
     public static int getMaxBarriersPlaceable(IStandPower power) {
         int level = power.getResolveLevel();
-        return level >= 4 ? 100 : 25;
+        LivingEntity user = power.getUser();
+        return level >= 4 ? MaxVarietyOfBarriers(user) : 25;
+    }
+
+    public static int MaxVarietyOfBarriers(LivingEntity user) {
+        return user.hasEffect(InitEffects.MOBIUS_STRIP.get())? 90 : 100;
     }
     
     @Override

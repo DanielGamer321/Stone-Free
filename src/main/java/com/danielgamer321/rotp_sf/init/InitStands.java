@@ -107,10 +107,15 @@ public class InitStands {
 
     public static final RegistryObject<StandAction> STONE_FREE_USER_RECOVER_STRING = ACTIONS.register("stone_free_user_recover_string",
             () -> new StoneFreeUserRecoverString(new StandAction.Builder().holdType()));
+
     public static final RegistryObject<StandEntityAction> STONE_FREE_GRAPPLE_ENTITY = ACTIONS.register("stone_free_grapple_entity",
             () -> new StoneFreeGrapple(new StandEntityAction.Builder().staminaCostTick(1).holdType().standUserWalkSpeed(1.0F)
                     .standPose(StandPose.RANGED_ATTACK).standOffsetFromUser(-0.5, 0.25)
                     .partsRequired(StandPart.ARMS)));
+
+    public static final RegistryObject<StandAction> STONE_FREE_USER_CLOSE_WOUNDS = ACTIONS.register("stone_free_user_close_wounds",
+            () -> new StoneFreeUserCloseWounds(new StandAction.Builder().staminaCost(20).holdToFire(10, false)
+                    .resolveLevelToUnlock(2)));
     
     public static final RegistryObject<StandAction> STONE_FREE_USER_BARRIER = ACTIONS.register("stone_free_user_barrier",
             () -> new StoneFreeUserBarrier(new StandAction.Builder()
@@ -121,6 +126,10 @@ public class InitStands {
             () -> new StoneFreeUserRemoveBarrier(new StandAction.Builder().holdType()
                     .resolveLevelToUnlock(3)
                     .shiftVariationOf(STONE_FREE_USER_BARRIER)));
+
+    public static final RegistryObject<StandAction> STONE_FREE_USER_MOBIUS_STRIP = ACTIONS.register("stone_free_user_mobius_strip",
+            () -> new StoneFreeUserMobiusStrip(new StandAction.Builder()
+                    .noResolveUnlock()));
 
 
     public static final EntityStandRegistryObject<StoneFreeStandType<StandStats>, StandEntityType<StoneFreeEntity>> STAND_STONE_FREE =
@@ -138,13 +147,15 @@ public class InitStands {
                             .rightClickHotbar(
                                     STONE_FREE_BLOCK.get(),
                                     STONE_FREE_USER_GRAPPLE.get(),
-                                    STONE_FREE_USER_BARRIER.get()
+                                    STONE_FREE_USER_CLOSE_WOUNDS.get(),
+                                    STONE_FREE_USER_BARRIER.get(),
+                                    STONE_FREE_USER_MOBIUS_STRIP.get()
                             )
                             .defaultStats(StandStats.class, new StandStats.Builder()
-                                    .power(14.0)
-                                    .speed(12.0)
+                                    .power(14.0, 15.0)
+                                    .speed(11.0, 12.0)
                                     .range(2.0, 10.0)
-                                    .durability(14.0)
+                                    .durability(14.0, 16.0)
                                     .precision(10.0)
                                     .randomWeight(2)
                             )

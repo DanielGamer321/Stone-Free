@@ -1,11 +1,10 @@
 package com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound;
 
-import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
 import com.danielgamer321.rotp_sf.init.InitEntities;
-import com.danielgamer321.rotp_sf.power.impl.stand.type.StoneFreeStandType;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.util.mc.damage.DamageUtil;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

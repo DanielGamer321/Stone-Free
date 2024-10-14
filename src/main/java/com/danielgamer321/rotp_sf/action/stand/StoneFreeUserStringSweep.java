@@ -1,6 +1,6 @@
 package com.danielgamer321.rotp_sf.action.stand;
 
-import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
+import com.danielgamer321.rotp_sf.capability.entity.LivingUtilCapProvider;
 import com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound.SFUStringSweepEntity;
 import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.danielgamer321.rotp_sf.power.impl.stand.type.StoneFreeStandType;
@@ -8,14 +8,16 @@ import com.github.standobyte.jojo.action.stand.StandAction;
 import com.github.standobyte.jojo.action.ActionConditionResult;
 import com.github.standobyte.jojo.action.ActionTarget;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
-
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.util.mc.MCUtil;
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 import java.util.List;
+
+import static com.danielgamer321.rotp_sf.action.stand.StoneFreeUserBarrier.MaxVarietyOfBarriers;
 
 public class StoneFreeUserStringSweep extends StandAction {
 
@@ -25,12 +27,10 @@ public class StoneFreeUserStringSweep extends StandAction {
 
     @Override
     protected ActionConditionResult checkSpecificConditions(LivingEntity user, IStandPower power, ActionTarget target) {
-        int strings = ((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power);
-        boolean userString = user.getCapability(PlayerUtilCapProvider.CAPABILITY).map(cap -> cap.userString(user)).orElse(false);
-        if (strings >= 100) {
+        if (((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power) >= MaxVarietyOfBarriers(user)) {
             return conditionMessage("string_limit");
         }
-        if (!userString) {
+        if (!user.getCapability(LivingUtilCapProvider.CAPABILITY).map(cap -> cap.userString(user)).orElse(null)) {
             return ActionConditionResult.NEGATIVE;
         }
         return super.checkSpecificConditions(user, power, target);

@@ -13,6 +13,8 @@ import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 
+import static com.danielgamer321.rotp_sf.action.stand.StoneFreeUserBarrier.MaxVarietyOfBarriers;
+
 public class StoneFreeGrapple extends StandEntityAction {
     
     public StoneFreeGrapple(StandEntityAction.Builder builder) {
@@ -21,8 +23,7 @@ public class StoneFreeGrapple extends StandEntityAction {
 
     @Override
     protected ActionConditionResult checkSpecificConditions(LivingEntity user, IStandPower power, ActionTarget target) {
-        int strings = ((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power);
-        if (strings >= 100) {
+        if (((StoneFreeStandType<?>) power.getType()).getPlacedBarriersCount(power) >= MaxVarietyOfBarriers(user)) {
             return conditionMessage("string_limit");
         }
         return ActionConditionResult.POSITIVE;

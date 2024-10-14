@@ -42,15 +42,24 @@ public class InitSounds {
     
     public static final RegistryObject<SoundEvent> STONE_FREE_STRING = SOUNDS.register("stone_free_string", 
             () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_string")));
+
+    public static final RegistryObject<SoundEvent> STONE_FREE_GRAPPLE_CATCH = SOUNDS.register("stone_free_grapple_catch",
+            () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_grapple_catch")));
+
+    public static final RegistryObject<SoundEvent> STONE_FREE_CLOSING_WOUND = SOUNDS.register("stone_free_closing_wound",
+            () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_closing_wound")));
+
+    public static final RegistryObject<SoundEvent> STONE_FREE_CLOSED_WOUND = SOUNDS.register("stone_free_closed_wound",
+            () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_closed_wound")));
     
     public static final RegistryObject<SoundEvent> STONE_FREE_BARRIER_PLACED = SOUNDS.register("stone_free_barrier_placed", 
             () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_barrier_placed")));
     
     public static final RegistryObject<SoundEvent> STONE_FREE_BARRIER_RIPPED = SOUNDS.register("stone_free_barrier_ripped", 
             () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_barrier_ripped")));
-    
-    public static final RegistryObject<SoundEvent> STONE_FREE_GRAPPLE_CATCH = SOUNDS.register("stone_free_grapple_catch", 
-            () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_grapple_catch")));
+
+    public static final RegistryObject<SoundEvent> STONE_FREE_MOBIUS_STRIP = SOUNDS.register("stone_free_mobius_strip",
+            () -> new SoundEvent(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_mobius_strip")));
     
     static final OstSoundList STONE_FREE_OST = new OstSoundList(new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "stone_free_ost"), SOUNDS);
 

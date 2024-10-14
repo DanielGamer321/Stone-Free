@@ -1,8 +1,9 @@
 package com.danielgamer321.rotp_sf.network.packets.fromserver;
 
-import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
+import com.danielgamer321.rotp_sf.capability.entity.LivingUtilCapProvider;
 import com.github.standobyte.jojo.client.ClientUtil;
 import com.github.standobyte.jojo.network.packets.IModPacketHandler;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -37,7 +38,7 @@ public class TrBarriersRemovedCountPacket {
         public void handle(TrBarriersRemovedCountPacket msg, Supplier<NetworkEvent.Context> ctx) {
             Entity entity = ClientUtil.getEntityById(msg.entityId);
             if (entity != null) {
-                entity.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(cap -> cap.setBarriersRemovedCount(msg.barriers));
+                entity.getCapability(LivingUtilCapProvider.CAPABILITY).ifPresent(cap -> cap.setBarriersRemovedCount(msg.barriers));
             }
         }
 

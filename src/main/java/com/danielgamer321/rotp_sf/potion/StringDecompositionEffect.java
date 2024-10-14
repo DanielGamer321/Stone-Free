@@ -22,10 +22,6 @@ public class StringDecompositionEffect extends UncurableEffect implements IAppli
     }
     
     @Override
-    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-    }
-    
-    @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }

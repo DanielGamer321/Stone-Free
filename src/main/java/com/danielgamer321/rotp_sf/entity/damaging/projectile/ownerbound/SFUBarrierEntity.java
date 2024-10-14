@@ -4,7 +4,8 @@ import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
-import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
+import com.danielgamer321.rotp_sf.capability.entity.LivingUtilCapProvider;
+import com.danielgamer321.rotp_sf.init.AddonStands;
 import com.danielgamer321.rotp_sf.init.InitEntities;
 import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.danielgamer321.rotp_sf.init.InitStands;
@@ -94,6 +95,13 @@ public class SFUBarrierEntity extends OwnerBoundProjectileEntity implements IHas
                     DamageUtil.hurtThroughInvulTicks(standUser, DamageSource.GENERIC, 0.12F);
                     rippedHurtOwner = true;
                 }
+                IStandPower.getStandPowerOptional(standUser).ifPresent(power -> {
+                    if (IStandPower.getStandPowerOptional(standUser).map(stand -> !stand.hasPower() ||
+                            stand.getType() != AddonStands.STONE_FREE.getStandType()).orElse(false)) {
+                        DamageUtil.hurtThroughInvulTicks(standUser, DamageSource.GENERIC, 0.12F);
+                        remove();
+                    }
+                });
             }
             else {
                 if (standUser == null || !standUser.isAlive() || (userStandPower != null && userStandPower.getHeldAction() == InitStands.STONE_FREE_USER_REMOVE_BARRIER.get())) {
@@ -123,7 +131,7 @@ public class SFUBarrierEntity extends OwnerBoundProjectileEntity implements IHas
     public void onRemovedFromWorld() {
         super.onRemovedFromWorld();
         if (!level.isClientSide() && ready) {
-            standUser.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(playerUtilCap -> playerUtilCap.addBarriersRemoved());
+            standUser.getCapability(LivingUtilCapProvider.CAPABILITY).ifPresent(playerUtilCap -> playerUtilCap.addBarriersRemoved());
         }
     }
 

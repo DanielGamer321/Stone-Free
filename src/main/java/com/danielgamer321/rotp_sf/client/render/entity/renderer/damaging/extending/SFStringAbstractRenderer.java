@@ -20,5 +20,4 @@ public abstract class SFStringAbstractRenderer<T extends OwnerBoundProjectileEnt
         return StandSkinsManager.getInstance()
                 .getRemappedResPath(manager -> manager.getStandSkin(entity.getStandSkin()), texPath);
     }
-
 }

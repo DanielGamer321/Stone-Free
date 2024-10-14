@@ -1,10 +1,8 @@
 package com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound;
 
-import com.danielgamer321.rotp_sf.capability.entity.PlayerUtilCapProvider;
 import com.danielgamer321.rotp_sf.init.InitEntities;
 import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.danielgamer321.rotp_sf.init.InitStands;
-import com.danielgamer321.rotp_sf.power.impl.stand.type.StoneFreeStandType;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
@@ -20,12 +18,12 @@ import net.minecraft.world.World;
 public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
     private IStandPower userStandPower;
     private boolean bindEntities;
-    private LivingEntity stand;
+    private LivingEntity user;
     private boolean caughtAnEntity = false;
 
-    public SFUGrapplingStringEntity(World world, LivingEntity entity, IStandPower userStand) {
-        super(InitEntities.SFU_GRAPPLING_STRING.get(), entity, world);
-        this.stand = entity;
+    public SFUGrapplingStringEntity(World world, LivingEntity user, IStandPower userStand) {
+        super(InitEntities.SFU_GRAPPLING_STRING.get(), user, world);
+        this.user = user;
         this.userStandPower = userStand;
     }
 
@@ -36,6 +34,9 @@ public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
     @Override
     public void tick() {
         super.tick();
+        IStandPower.getStandPowerOptional(user).ifPresent(power -> {
+            power.consumeStamina(1);
+        });
         if (!isAlive()) {
             return;
         }
@@ -76,14 +77,11 @@ public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
             if (vecFromOwner.lengthSqr() > 4) {
                 Vector3d grappleVec = vecFromOwner.normalize().scale(2);
                 Entity entity = owner;
-                if (stand == null && owner instanceof StandEntity) {
-                	stand = (StandEntity) owner;
+                if (user == null && owner instanceof LivingEntity) {
+                    user = (LivingEntity) owner;
                 }
-                if (stand != null) {
-                    LivingEntity user = userStandPower.getUser();
-                    if (user != null) {
-                    	entity = user;
-                    }
+                if (user != null) {
+                    entity = user;
                 }
                 entity = entity.getRootVehicle();
                 entity.setDeltaMovement(grappleVec);
@@ -105,14 +103,11 @@ public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
             if (vecFromOwner.lengthSqr() > 4) {
                 Vector3d grappleVec = vecFromOwner.normalize().scale(1.5);
                 Entity entity = owner;
-                if (stand == null && owner instanceof StandEntity) {
-                    stand = (StandEntity) owner;
+                if (user == null && owner instanceof LivingEntity) {
+                    user = (LivingEntity) owner;
                 }
-                if (stand != null) {
-                    LivingEntity user = userStandPower.getUser();
-                    if (user != null) {
-                        entity = user;
-                    }
+                if (user != null) {
+                    entity = user;
                 }
                 entity = entity.getRootVehicle();
                 entity.setDeltaMovement(grappleVec);
