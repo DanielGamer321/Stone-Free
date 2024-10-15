@@ -34,7 +34,7 @@ public class StoneFreeUserCloseWounds extends StandAction {
         }
 
         if (!user.hasEffect(ModStatusEffects.BLEEDING.get()) && AddonInteractionUtil.getWRBleedingEntity(user) == 0 &&
-                AddonInteractionUtil.getMIDBleedingEntity(user) == 0) {
+                AddonInteractionUtil.getMIHBleedingEntity(user) == 0) {
             return ActionConditionResult.NEGATIVE;
         }
         return super.checkSpecificConditions(user, power, target);
@@ -64,10 +64,10 @@ public class StoneFreeUserCloseWounds extends StandAction {
                     }
                 }
             }
-            if (AddonInteractionUtil.getMIDBleedingEntity(user) > 0) {
+            if (AddonInteractionUtil.getMIHBleedingEntity(user) > 0) {
                 Map<Effect, EffectInstance> map = user.getActiveEffectsMap();
                 for (Effect effect : map.keySet()) {
-                    if (AddonInteractionUtil.MID_BLEEDING.equals(effect.getRegistryName())) {
+                    if (AddonInteractionUtil.MIH_BLEEDING.equals(effect.getRegistryName())) {
                         user.removeEffect(effect);
                     }
                 }
@@ -86,8 +86,8 @@ public class StoneFreeUserCloseWounds extends StandAction {
         if (AddonInteractionUtil.getWRBleedingEntity(user) > 0) {
             lvl = lvl + AddonInteractionUtil.getWRBleedingEntity(user);
         }
-        if (AddonInteractionUtil.getMIDBleedingEntity(user) > 0) {
-            lvl = lvl + AddonInteractionUtil.getMIDBleedingEntity(user);
+        if (AddonInteractionUtil.getMIHBleedingEntity(user) > 0) {
+            lvl = lvl + AddonInteractionUtil.getMIHBleedingEntity(user);
         }
         return super.getStaminaCost(stand) * lvl;
     }

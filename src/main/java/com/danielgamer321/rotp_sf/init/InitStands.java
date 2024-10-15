@@ -62,7 +62,7 @@ public class InitStands {
     public static final RegistryObject<StandEntityAction> STONE_FREE_HEAVY_PUNCH = ACTIONS.register("stone_free_heavy_punch", 
             () -> new StoneFreeHeavyPunch(new StandEntityHeavyAttack.Builder()
                     .punchSound(InitSounds.STONE_FREE_PUNCH_HEAVY)
-                    .standOffsetFromUser(-0.75, -0.75).standSound(Phase.WINDUP, InitSounds.STONE_FREE_ORA_LONG)
+                    .standSound(Phase.WINDUP, InitSounds.STONE_FREE_ORA_LONG)
                     .partsRequired(StandPart.ARMS)
                     .setFinisherVariation(STONE_FREE_STRING_PUNCH)
                     .shiftVariationOf(STONE_FREE_PUNCH).shiftVariationOf(STONE_FREE_BARRAGE)));

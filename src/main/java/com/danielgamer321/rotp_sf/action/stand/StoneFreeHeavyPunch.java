@@ -4,6 +4,7 @@ import com.github.standobyte.jojo.action.stand.StandEntityHeavyAttack;
 import com.github.standobyte.jojo.action.stand.punch.StandEntityPunch;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntityTask;
+import com.github.standobyte.jojo.entity.stand.StandRelativeOffset;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.util.mc.damage.StandEntityDamageSource;
 
@@ -18,7 +19,10 @@ public class StoneFreeHeavyPunch extends StandEntityHeavyAttack {
         super(builder);
     }
 
-    private static final double SLIDE_DISTANCE = 1.8;
+    public double getSlideDistance() {
+        return 2.75;
+    }
+
     @Override
     public void standTickWindup(World world, StandEntity standEntity, IStandPower userPower, StandEntityTask task) {
         int ticksLeft = task.getTicksLeft();
@@ -27,10 +31,10 @@ public class StoneFreeHeavyPunch extends StandEntityHeavyAttack {
             Vector3d slideVec;
             if (targetPos != null) {
                 slideVec = targetPos.subtract(standEntity.getEyePosition(1.0F));
-                slideVec = slideVec.normalize().scale(MathHelper.clamp(slideVec.length() - standEntity.getBbWidth(), 0, SLIDE_DISTANCE));
+                slideVec = slideVec.normalize().scale(MathHelper.clamp(slideVec.length() - standEntity.getBbWidth(), 0, getSlideDistance()));
             }
             else {
-                slideVec = standEntity.getLookAngle().scale(SLIDE_DISTANCE);
+                slideVec = standEntity.getLookAngle().scale(getSlideDistance());
             }
             standEntity.setDeltaMovement(slideVec);
         }
@@ -44,6 +48,11 @@ public class StoneFreeHeavyPunch extends StandEntityHeavyAttack {
         double strength = stand.getAttackDamage();
         return super.punchEntity(stand, target, dmgSource)
                 .addKnockback(0.5F + (float) strength / 8);
+    }
+
+    @Override
+    public StandRelativeOffset getOffsetFromUser(IStandPower standPower, StandEntity standEntity, StandEntityTask task) {
+        return StandRelativeOffset.noYOffset(-0.75, -0.75);
     }
 
     @Override
