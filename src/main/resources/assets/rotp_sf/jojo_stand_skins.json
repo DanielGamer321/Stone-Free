@@ -3,6 +3,14 @@
     "rotp_sf:stone_free": {
       "stand_type": "rotp_sf:stone_free",
       "color" : "0x80DEF7"
+    },
+    "rotp_sf:stone_free_1_ts": {
+      "stand_type": "rotp_sf:stone_free",
+      "color" : "0x80DEF7"
+    },
+    "rotp_sf:stone_free_2_manga": {
+      "stand_type": "rotp_sf:stone_free",
+      "color" : "0x47CFF5"
     }
   }
 }
