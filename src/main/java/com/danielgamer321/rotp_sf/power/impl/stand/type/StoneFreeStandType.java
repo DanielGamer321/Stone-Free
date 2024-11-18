@@ -7,6 +7,7 @@ import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.danielgamer321.rotp_sf.init.InitStands;
 import com.danielgamer321.rotp_sf.util.AddonInteractionUtil;
 import com.github.standobyte.jojo.action.stand.StandAction;
+import com.github.standobyte.jojo.init.ModStatusEffects;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.power.impl.stand.stats.StandStats;
@@ -51,6 +52,7 @@ public class StoneFreeStandType<T extends StandStats> extends EntityStandType<T>
     public void tickUser(LivingEntity user, IStandPower power) {
         super.tickUser(user, power);
         if (!user.level.isClientSide()) {
+            user.addEffect(new EffectInstance(ModStatusEffects.INTEGRATED_STAND.get(), 20, 0, false, false, false));
             switch (getPlacedBarriersCount(power)){
                 case 21: case 22: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30:
                     user.addEffect(new EffectInstance(InitEffects.STRING_DECOMPOSITION.get(), 20, 0, false, false, true));
@@ -79,8 +81,8 @@ public class StoneFreeStandType<T extends StandStats> extends EntityStandType<T>
                 default:
                     user.removeEffect(InitEffects.STRING_DECOMPOSITION.get());
             }
-            if (power.getResolveLevel() >= 4 && AddonInteractionUtil.getInvestedEntity(user) > 0 &&
-                    user.getHealth() <= 10 && !InitStands.STONE_FREE_USER_MOBIUS_STRIP.get().isUnlocked(power)) {
+            if (power.getResolveLevel() >= 4 && AddonInteractionUtil.getInvestedEntity(user) > 0 && user.getHealth() <= 10 &&
+                    !InitStands.STONE_FREE_USER_MOBIUS_STRIP.get().isUnlocked(power) && getPlacedBarriersCount(power) <= 90) {
                 power.unlockAction(InitStands.STONE_FREE_USER_MOBIUS_STRIP.get());
                 StoneFreeUserMobiusStrip.setModeServerSide(user, true);
             }

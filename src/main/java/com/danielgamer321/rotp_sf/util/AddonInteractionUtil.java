@@ -14,29 +14,29 @@ public class AddonInteractionUtil {
     public static final ResourceLocation MIH_BLEEDING = new ResourceLocation("rotp_mih", "bleeding");
     public static final ResourceLocation CM_INVERSION = new ResourceLocation("rotp_cm", "cm_inversion");
     public static float getWRBleedingEntity(LivingEntity entity) {
-        return Math.min(entity.getActiveEffectsMap().entrySet().stream().map(entry -> {
+        return Math.max(entity.getActiveEffectsMap().entrySet().stream().map(entry -> {
             if (WR_BLEEDING.equals(entry.getKey().getRegistryName())) {
                 return entry.getValue().getAmplifier() + 1F;
             }
             return 0F;
-        }).max(Comparator.naturalOrder()).orElse(0F), 1);
+        }).max(Comparator.naturalOrder()).orElse(0F), 0);
     }
 
     public static float getMIHBleedingEntity(LivingEntity entity) {
-        return Math.min(entity.getActiveEffectsMap().entrySet().stream().map(entry -> {
+        return Math.max(entity.getActiveEffectsMap().entrySet().stream().map(entry -> {
             if (MIH_BLEEDING.equals(entry.getKey().getRegistryName())) {
                 return entry.getValue().getAmplifier() + 1F;
             }
             return 0F;
-        }).max(Comparator.naturalOrder()).orElse(0F), 1);
+        }).max(Comparator.naturalOrder()).orElse(0F), 0);
     }
 
     public static float getInvestedEntity(LivingEntity entity) {
-        return Math.min(entity.getActiveEffectsMap().entrySet().stream().map(entry -> {
+        return Math.max(entity.getActiveEffectsMap().entrySet().stream().map(entry -> {
             if (CM_INVERSION.equals(entry.getKey().getRegistryName())) {
                 return entry.getValue().getAmplifier() + 1F;
             }
             return 0F;
-        }).max(Comparator.naturalOrder()).orElse(0F), 1);
+        }).max(Comparator.naturalOrder()).orElse(0F), 0);
     }
 }

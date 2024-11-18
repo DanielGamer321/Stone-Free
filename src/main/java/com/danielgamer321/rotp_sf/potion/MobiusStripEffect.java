@@ -24,12 +24,15 @@ public class MobiusStripEffect extends UncurableEffect implements IApplicableEff
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         super.applyEffectTick(livingEntity,amplifier);
         if (AddonInteractionUtil.getInvestedEntity(livingEntity) > 0) {
+            Effect inversion = null;
             Map<Effect, EffectInstance> map = livingEntity.getActiveEffectsMap();
             for (Effect effect : map.keySet()) {
                 if (AddonInteractionUtil.CM_INVERSION.equals(effect.getRegistryName())) {
-                    livingEntity.removeEffect(effect);
+                    inversion = effect;
                 }
             }
+            if (inversion != null)
+                livingEntity.removeEffect(inversion);
             IStandPower.getStandPowerOptional(livingEntity).ifPresent(stand -> {
                 stand.consumeStamina(10 * AddonInteractionUtil.getInvestedEntity(livingEntity));
             });

@@ -26,6 +26,7 @@ public class SFExtendedPunchModel extends RepeatingModel<SFExtendedPunchEntity> 
 		rightForeArm.texOffs(18, 4).addBox(-2.0F, -24.5F, -5.1F, 1.0F, 1.0F, 1.0F, -0.2F, false);
 		rightForeArm.texOffs(14, 2).addBox(-1.0F, -24.5F, -5.1F, 1.0F, 1.0F, 1.0F, -0.2F, false);
 		rightForeArm.texOffs(14, 4).addBox(0.0F, -24.5F, -5.1F, 1.0F, 1.0F, 1.0F, -0.2F, false);
+		rightForeArm.texOffs(14, 0).addBox(-3.0F, -24.5F, -5.1F, 4.0F, 1.0F, 1.0F, -0.2F, false);
 
 		string = new ModelRenderer(this);
 		string.setPos(0.0F, 24.0F, 0.0F);

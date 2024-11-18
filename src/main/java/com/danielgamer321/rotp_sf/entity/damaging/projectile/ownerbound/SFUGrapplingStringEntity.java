@@ -5,6 +5,7 @@ import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.danielgamer321.rotp_sf.init.InitStands;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
+import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.util.mod.JojoModUtil;
 
@@ -34,8 +35,8 @@ public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        IStandPower.getStandPowerOptional(user).ifPresent(power -> {
-            power.consumeStamina(1);
+        getUserStandPower().ifPresent(stand -> {
+            stand.consumeStamina(1, true);
         });
         if (!isAlive()) {
             return;

@@ -57,20 +57,26 @@ public class StoneFreeUserCloseWounds extends StandAction {
                 user.removeEffect(ModStatusEffects.BLEEDING.get());
             }
             if (AddonInteractionUtil.getWRBleedingEntity(user) > 0) {
+                Effect bleeding = null;
                 Map<Effect, EffectInstance> map = user.getActiveEffectsMap();
                 for (Effect effect : map.keySet()) {
                     if (AddonInteractionUtil.WR_BLEEDING.equals(effect.getRegistryName())) {
-                        user.removeEffect(effect);
+                        bleeding = effect;
                     }
                 }
+                if (bleeding != null)
+                    user.removeEffect(bleeding);
             }
             if (AddonInteractionUtil.getMIHBleedingEntity(user) > 0) {
+                Effect bleeding = null;
                 Map<Effect, EffectInstance> map = user.getActiveEffectsMap();
                 for (Effect effect : map.keySet()) {
                     if (AddonInteractionUtil.MIH_BLEEDING.equals(effect.getRegistryName())) {
-                        user.removeEffect(effect);
+                        bleeding = effect;
                     }
                 }
+                if (bleeding != null)
+                    user.removeEffect(bleeding);
             }
         }
     }

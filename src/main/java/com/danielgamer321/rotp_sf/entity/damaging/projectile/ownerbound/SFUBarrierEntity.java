@@ -15,6 +15,7 @@ import com.github.standobyte.jojo.entity.IHasHealth;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.init.ModDataSerializers;
+import com.github.standobyte.jojo.init.ModStatusEffects;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.power.impl.stand.StandUtil;
 import com.github.standobyte.jojo.util.mc.MCUtil;
@@ -95,13 +96,6 @@ public class SFUBarrierEntity extends OwnerBoundProjectileEntity implements IHas
                     DamageUtil.hurtThroughInvulTicks(standUser, DamageSource.GENERIC, 0.12F);
                     rippedHurtOwner = true;
                 }
-                IStandPower.getStandPowerOptional(standUser).ifPresent(power -> {
-                    if (IStandPower.getStandPowerOptional(standUser).map(stand -> !stand.hasPower() ||
-                            stand.getType() != AddonStands.STONE_FREE.getStandType()).orElse(false)) {
-                        DamageUtil.hurtThroughInvulTicks(standUser, DamageSource.GENERIC, 0.12F);
-                        remove();
-                    }
-                });
             }
             else {
                 if (standUser == null || !standUser.isAlive() || (userStandPower != null && userStandPower.getHeldAction() == InitStands.STONE_FREE_USER_REMOVE_BARRIER.get())) {
@@ -113,6 +107,13 @@ public class SFUBarrierEntity extends OwnerBoundProjectileEntity implements IHas
                     return;
                 }
             }
+            IStandPower.getStandPowerOptional(standUser).ifPresent(power -> {
+                if (IStandPower.getStandPowerOptional(standUser).map(stand -> !stand.hasPower() ||
+                        stand.getType() != AddonStands.STONE_FREE.getStandType()).orElse(false)) {
+                    DamageUtil.hurtThroughInvulTicks(standUser, DamageSource.GENERIC, 0.12F);
+                    remove();
+                }
+            });
         }
         else if (!level.isClientSide()) {
             if (!wasAlerted()) {
@@ -247,6 +248,14 @@ public class SFUBarrierEntity extends OwnerBoundProjectileEntity implements IHas
         return wasAlerted() ? 0xFF0000 : super.getTeamColor();
     }
 
+    private boolean isStand(Entity entity) {
+        if (entity instanceof LivingEntity) {
+            LivingEntity living = (LivingEntity) entity;
+            return living instanceof StandEntity || living.hasEffect(ModStatusEffects.INTEGRATED_STAND.get());
+        }
+        return false;
+    }
+
     @Override
     protected void onHitEntity(EntityRayTraceResult entityRayTraceResult) {
         if (getBlockPosAttachedTo().isPresent()) {
@@ -254,7 +263,7 @@ public class SFUBarrierEntity extends OwnerBoundProjectileEntity implements IHas
             target.setDeltaMovement(Vector3d.ZERO);
             if (!level.isClientSide()) {
                 if (!(userStandPower.isActive() && userStandPower.getStandManifestation() instanceof StoneFreeEntity)) {
-                    if (target instanceof StandEntity || alertedTicks == -1) {
+                    if (isStand(target) && alertedTicks == -1) {
                         setHealth(getHealth() - 1);
                     }
                     alertAtOn(entityRayTraceResult.getLocation());
@@ -262,7 +271,7 @@ public class SFUBarrierEntity extends OwnerBoundProjectileEntity implements IHas
                 else {
                     StoneFreeEntity standOwner = (StoneFreeEntity) userStandPower.getStandManifestation();
                     if (target != standOwner) {
-                        if (target instanceof StandEntity || alertedTicks == -1) {
+                        if (isStand(target) && alertedTicks == -1) {
                             setHealth(getHealth() - 1);
                         }
                         alertAtOn(entityRayTraceResult.getLocation());
