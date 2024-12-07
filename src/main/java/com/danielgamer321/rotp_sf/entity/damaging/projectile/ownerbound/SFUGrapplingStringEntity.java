@@ -5,16 +5,18 @@ import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.danielgamer321.rotp_sf.init.InitStands;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
 import com.github.standobyte.jojo.entity.stand.StandEntity;
-import com.github.standobyte.jojo.init.power.stand.ModStandsInit;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.util.mod.JojoModUtil;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MoverType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
     private IStandPower userStandPower;
@@ -35,9 +37,20 @@ public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        getUserStandPower().ifPresent(stand -> {
-            stand.consumeStamina(1, true);
-        });
+        LivingEntity owner = getOwner();
+        if (owner != null) {
+            double distanceSqr = distanceToSqr(owner);
+            if (!level.isClientSide() && distanceSqr > 576 && owner instanceof PlayerEntity) {
+                double horizontalDistSqr = distanceSqr - Math.pow(getY() - owner.getY(), 2);
+                int warningDistance = ((ServerWorld) level).getServer().getPlayerList().getViewDistance() * 16 - 4;
+                if (horizontalDistSqr > warningDistance * warningDistance) {
+                    remove();
+                }
+            }
+            getUserStandPower().ifPresent(stand -> {
+                stand.consumeStamina(1, true);
+            });
+        }
         if (!isAlive()) {
             return;
         }
@@ -48,13 +61,12 @@ public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
         }
         LivingEntity bound = getEntityAttachedTo();
         if (bound != null) {
-            LivingEntity owner = getOwner();
             if (!bound.isAlive()) {
                 if (!level.isClientSide()) {
                     remove();
                 }
             }
-            else {
+            else if (owner != null) {
                 Vector3d vecToOwner = owner.position().subtract(bound.position());
                 double length = vecToOwner.length();
                 if (length < 2) {
@@ -65,7 +77,7 @@ public class SFUGrapplingStringEntity extends OwnerBoundProjectileEntity {
             }
         }
     }
-    
+
     public void setBindEntities(boolean bindEntities) {
         this.bindEntities = bindEntities;
     }

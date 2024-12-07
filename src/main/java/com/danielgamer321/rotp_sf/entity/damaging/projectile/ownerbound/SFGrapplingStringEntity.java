@@ -59,7 +59,7 @@ public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
                     remove();
                 }
             }
-            else {
+            else if (owner != null) {
                 Vector3d vecToOwner = owner.position().subtract(bound.position());
                 double length = vecToOwner.length();
                 if (length < 2) {
@@ -68,8 +68,8 @@ public class SFGrapplingStringEntity extends OwnerBoundProjectileEntity {
                 	}
                 }
                 else {
-                	dragTarget(bound, vecToOwner.normalize().scale(1));
-                	bound.fallDistance = 0;
+                    dragTarget(bound, vecToOwner.normalize().scale(1));
+                    bound.fallDistance = 0;
                 }
             }
         }
