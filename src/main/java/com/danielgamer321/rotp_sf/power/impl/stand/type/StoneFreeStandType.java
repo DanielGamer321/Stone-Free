@@ -52,7 +52,7 @@ public class StoneFreeStandType<T extends StandStats> extends EntityStandType<T>
     public void tickUser(LivingEntity user, IStandPower power) {
         super.tickUser(user, power);
         if (!user.level.isClientSide()) {
-            user.addEffect(new EffectInstance(ModStatusEffects.INTEGRATED_STAND.get(), 20, 0, false, false, false));
+            user.addEffect(new EffectInstance(ModStatusEffects.INTEGRATED_STAND.get(), 10, 0, false, false, false));
             switch (getPlacedBarriersCount(power)){
                 case 21: case 22: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30:
                     user.addEffect(new EffectInstance(InitEffects.STRING_DECOMPOSITION.get(), 20, 0, false, false, true));
