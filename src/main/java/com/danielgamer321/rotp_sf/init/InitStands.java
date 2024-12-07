@@ -96,12 +96,12 @@ public class InitStands {
             () -> new StandEntityBlock());
 
     public static final RegistryObject<StandAction> STONE_FREE_USER_GRAPPLE = ACTIONS.register("stone_free_user_grapple",
-            () -> new StoneFreeUserGrapple(new StandAction.Builder().staminaCostTick(20)
+            () -> new StoneFreeUserGrapple(new StandAction.Builder()
                     .needsFreeMainHand().swingHand()
                     .resolveLevelToUnlock(2)));
 
     public static final RegistryObject<StandAction> STONE_FREE_USER_GRAPPLE_ENTITY = ACTIONS.register("stone_free_user_grapple_entity",
-            () -> new StoneFreeUserGrapple(new StandAction.Builder().staminaCostTick(20)
+            () -> new StoneFreeUserGrapple(new StandAction.Builder()
                     .needsFreeMainHand().swingHand()
                     .shiftVariationOf(STONE_FREE_USER_GRAPPLE)));
 
