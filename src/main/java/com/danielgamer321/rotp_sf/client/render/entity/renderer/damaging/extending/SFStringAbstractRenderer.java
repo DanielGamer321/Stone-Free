@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 public abstract class SFStringAbstractRenderer<T extends OwnerBoundProjectileEntity> extends ExtendingEntityRenderer<T, SFStringModel<T>> {
     private static final ResourceLocation STRINGS = new ResourceLocation(RotpStoneFreeAddon.MOD_ID, "textures/entity/projectiles/sf_strings.png");
     private static ResourceLocation SKIN = STRINGS;
-    
+
     public SFStringAbstractRenderer(EntityRendererManager renderManager, SFStringModel<T> model) {
         super(renderManager, model, SKIN);
     }
