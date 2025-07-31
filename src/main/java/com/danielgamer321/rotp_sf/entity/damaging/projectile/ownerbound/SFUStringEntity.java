@@ -3,10 +3,10 @@ package com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound;
 import com.danielgamer321.rotp_sf.init.InitEntities;
 import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
+import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.init.ModStatusEffects;
 import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.github.standobyte.jojo.util.mc.damage.DamageUtil;
-import com.github.standobyte.jojo.util.mod.JojoModUtil;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -43,7 +43,7 @@ public class SFUStringEntity extends OwnerBoundProjectileEntity {
     public boolean standDamage() {
         return true;
     }
-    
+
     public boolean isBinding() {
         return isBinding;
     }
@@ -53,29 +53,14 @@ public class SFUStringEntity extends OwnerBoundProjectileEntity {
         return isBinding ? 0.30769231F : 2F;
     }
     
-    public void addKnockback(float knockback) {
-        this.knockback = knockback;
-    }
-
-    @Override
-    public void onRemovedFromWorld() {
-        super.onRemovedFromWorld();
-        if (!level.isClientSide()) {
-//            user.getCapability(PlayerUtilCapProvider.CAPABILITY).ifPresent(playerUtilCap -> playerUtilCap.available());
-//            ((StoneFreeStandType<?>) userStandPower.getType()).available(userStandPower);
-        }
-    }
-    
     @Override
     protected boolean hurtTarget(Entity target, LivingEntity owner) {
         if (getEntityAttachedTo() == null && isBinding) {
-            if (target instanceof LivingEntity) {
-                LivingEntity livingTarget = (LivingEntity) target;
-                if (!JojoModUtil.isTargetBlocking(livingTarget)) {
-                    attachToEntity((LivingEntity) target);
-                    playSound(InitSounds.STONE_FREE_GRAPPLE_CATCH.get(), 1.0F, 1.0F);
-                    return true;
-                }
+            if (!(target instanceof StandEntity && ((StandEntity)target).getUser() == owner) &&
+                    target instanceof LivingEntity) {
+                attachToEntity((LivingEntity) target);
+                playSound(InitSounds.STONE_FREE_GRAPPLE_CATCH.get(), 1.0F, 1.0F);
+                return true;
             }
         }
         return !dealtDamage ? super.hurtTarget(target, owner) : false;
@@ -89,15 +74,16 @@ public class SFUStringEntity extends OwnerBoundProjectileEntity {
     @Override
     protected void afterEntityHit(EntityRayTraceResult entityRayTraceResult, boolean entityHurt) {
         if (entityHurt) {
-            dealtDamage = true;
             Entity target = entityRayTraceResult.getEntity();
+            if (!(target instanceof SFStringEntity)) {
+                dealtDamage = true;
+            }
             if (isBinding) {
-                if (target instanceof LivingEntity) {
+                if (!(target instanceof StandEntity && ((StandEntity)target).getUser() == user) &&
+                        target instanceof LivingEntity) {
                     LivingEntity livingTarget = (LivingEntity) target;
-                    if (!JojoModUtil.isTargetBlocking(livingTarget)) {
-                        attachToEntity(livingTarget);
-                        livingTarget.addEffect(new EffectInstance(ModStatusEffects.IMMOBILIZE.get(), ticksLifespan() - tickCount));
-                    }
+                    attachToEntity(livingTarget);
+                    livingTarget.addEffect(new EffectInstance(ModStatusEffects.IMMOBILIZE.get(), ticksLifespan() - tickCount));
                 }
             }
             else {
@@ -123,7 +109,7 @@ public class SFUStringEntity extends OwnerBoundProjectileEntity {
     public int ticksLifespan() {
         int ticks = super.ticksLifespan();
         if (isBinding && isAttachedToAnEntity()) {
-            ticks += 10;
+            ticks += 25;
         }
         return ticks;
     }

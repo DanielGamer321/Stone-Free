@@ -183,6 +183,23 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 						RotationAngle.fromDegrees(leftLowerLeg, 5, 0, 0),
 						RotationAngle.fromDegrees(rightLeg, -10, 0, 2.5F),
 						RotationAngle.fromDegrees(rightLowerLeg, 5, 0, 0)
+				},
+				new RotationAngle[] {
+						RotationAngle.fromDegrees(head, 3.5F, 45, 0),
+						RotationAngle.fromDegrees(body, 10, 45, 0),
+						RotationAngle.fromDegrees(upperPart, 0, 0, 0),
+						RotationAngle.fromDegrees(leftArm, -15, 0, 0),
+						RotationAngle.fromDegrees(leftArmJointSlim, 40, 0, 0),
+						RotationAngle.fromDegrees(leftForeArm, -111.7736F, 47.1724F, -92.5132F),
+						RotationAngle.fromDegrees(rightArm, -15, 0, 0),
+						RotationAngle.fromDegrees(rightArmJointSlim, 40, 0, 0),
+						RotationAngle.fromDegrees(rightForeArm, -111.7736F, -47.1724F, 92.5132F),
+						RotationAngle.fromDegrees(leftLeg, -85, 0, 0),
+						RotationAngle.fromDegrees(leftLegJoint, 50, 0, 0),
+						RotationAngle.fromDegrees(leftLowerLeg, 100, 0, 0),
+						RotationAngle.fromDegrees(rightLeg, -85, 0, 0),
+						RotationAngle.fromDegrees(rightLegJoint, 60, 0, 0),
+						RotationAngle.fromDegrees(rightLowerLeg, 135, 0, 0)
 				}
 		};
 	}
@@ -196,95 +213,6 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 		};
 
 		ModelPose<StoneFreeEntity> heavyPunchPose1 = new ModelPose<>(new RotationAngle[] {
-				RotationAngle.fromDegrees(head, 0, -360, 0).noDegreesWrapping(),
-				RotationAngle.fromDegrees(body, 30, -290, 0),
-				RotationAngle.fromDegrees(upperPart, 0, 0, 0),
-				RotationAngle.fromDegrees(leftArm, 10, -20, -90),
-				RotationAngle.fromDegrees(leftForeArm, -20, 0, 0),
-				RotationAngle.fromDegrees(rightArm, 40, 0, 90),
-				RotationAngle.fromDegrees(rightForeArm, -60, 0, 0),
-				RotationAngle.fromDegrees(leftLeg, -30, 0, 0),
-				RotationAngle.fromDegrees(leftLowerLeg, 30, 0, 0),
-				RotationAngle.fromDegrees(rightLeg, -20, 0, 0),
-				RotationAngle.fromDegrees(rightLowerLeg, 20, 0, 0)
-		});
-		ModelPose<StoneFreeEntity> heavyPunchPose2 = new ModelPose<>(new RotationAngle[] {
-				RotationAngle.fromDegrees(head, 0, -360, 0).noDegreesWrapping(),
-				RotationAngle.fromDegrees(body, 0, -295, 20),
-				RotationAngle.fromDegrees(upperPart, 0, 0, 0),
-				RotationAngle.fromDegrees(leftArm, 0, -10, -77.5F),
-				RotationAngle.fromDegrees(leftForeArm, -20, 0, 0),
-				RotationAngle.fromDegrees(rightArm, 45, 12.5F, 80),
-				RotationAngle.fromDegrees(rightForeArm, -70, 0, 0),
-				RotationAngle.fromDegrees(leftLeg, -45, 0, 0F),
-				RotationAngle.fromDegrees(leftLowerLeg, 40, 0, 0),
-				RotationAngle.fromDegrees(rightLeg, -46.66F, 0, 0),
-				RotationAngle.fromDegrees(rightLowerLeg, 51.67F, 0, 0)
-		});
-		ModelPose<StoneFreeEntity> heavyPunchPose3 = new ModelPose<>(new RotationAngle[] {
-				RotationAngle.fromDegrees(head, 0, -190, 0).noDegreesWrapping(),
-				RotationAngle.fromDegrees(body, 30, -190, -5),
-				RotationAngle.fromDegrees(upperPart, 0, 0, 0),
-				RotationAngle.fromDegrees(leftArm, 50, -25, -67.5F),
-				RotationAngle.fromDegrees(leftForeArm, -80, 0, 0),
-				RotationAngle.fromDegrees(rightArm, 50, 25, 70),
-				RotationAngle.fromDegrees(rightForeArm, -80, 0, 0),
-				RotationAngle.fromDegrees(leftLeg, -60, 0, 0),
-				RotationAngle.fromDegrees(leftLowerLeg, 50, 0, 0),
-				RotationAngle.fromDegrees(rightLeg, -73.33F, 0, 0),
-				RotationAngle.fromDegrees(rightLowerLeg, 83.33F, 0, 0)
-		});
-		ModelPose<StoneFreeEntity> heavyPunchPose4 = new ModelPose<>(new RotationAngle[] {
-				RotationAngle.fromDegrees(head, 0, 0, 0).noDegreesWrapping(),
-				RotationAngle.fromDegrees(body, 40, -30, -5),
-				RotationAngle.fromDegrees(upperPart, 0, 0, 0),
-				RotationAngle.fromDegrees(leftArm, 60, -15, -67.5F),
-				RotationAngle.fromDegrees(leftForeArm, -80, 0, 0),
-				RotationAngle.fromDegrees(rightArm, 25, 25, 70),
-				RotationAngle.fromDegrees(rightForeArm, -80, 0, 0),
-				RotationAngle.fromDegrees(leftLeg, -75, 0, 0),
-				RotationAngle.fromDegrees(leftLowerLeg, 60, 0, 0),
-				RotationAngle.fromDegrees(rightLeg, -100, 0, 0),
-				RotationAngle.fromDegrees(rightLowerLeg, 115, 0, 0)
-		});
-		ModelPose<StoneFreeEntity> heavyPunchPose5 = new ModelPose<>(new RotationAngle[] {
-				RotationAngle.fromDegrees(body, 50, -20, -5),
-				RotationAngle.fromDegrees(upperPart, 0, 0, 0),
-				RotationAngle.fromDegrees(leftArm, 60, -45, -80),
-				RotationAngle.fromDegrees(leftForeArm, -135, 0, 0),
-				RotationAngle.fromDegrees(rightArm, 35, 25, 70),
-				RotationAngle.fromDegrees(rightForeArm, -100, 0, 0),
-				RotationAngle.fromDegrees(leftLeg, -55, 0, 0),
-				RotationAngle.fromDegrees(rightLeg, -80, 0, 0.0F),
-				RotationAngle.fromDegrees(rightLowerLeg, 65, 0, 0)
-		});
-		ModelPose<StoneFreeEntity> heavyPunchPose6 = new ModelPose<>(new RotationAngle[] {
-				RotationAngle.fromDegrees(body, 50, -20, -5),
-				RotationAngle.fromDegrees(upperPart, 0, 0, 0),
-				RotationAngle.fromDegrees(leftArm, -100, -45, -100),
-				RotationAngle.fromDegrees(leftForeArm, 0, 0, 0),
-				RotationAngle.fromDegrees(rightArm, 45F, 25, 50),
-				RotationAngle.fromDegrees(rightForeArm, -135, 0, 0),
-				RotationAngle.fromDegrees(leftLeg, -55, 0, 0),
-				RotationAngle.fromDegrees(leftLowerLeg, 60, 0, 0),
-				RotationAngle.fromDegrees(rightLeg, -80, 0, 0),
-				RotationAngle.fromDegrees(rightLowerLeg, 65, 0, 0)
-		});
-		actionAnim.put(StandPose.HEAVY_ATTACK, new PosedActionAnimation.Builder<StoneFreeEntity>()
-				.addPose(StandEntityAction.Phase.WINDUP, new ModelPoseTransitionMultiple.Builder<>(heavyPunchPose1)
-						.addPose(0.2F, heavyPunchPose2)
-						.addPose(0.4F, heavyPunchPose3)
-						.addPose(0.6F, heavyPunchPose4)
-						.addPose(0.8F, heavyPunchPose5)
-						.build(heavyPunchPose6))
-				.addPose(StandEntityAction.Phase.RECOVERY, new ModelPoseTransitionMultiple.Builder<>(heavyPunchPose6)
-						.addPose(0.5F, heavyPunchPose6)
-						.build(idlePose))
-				.build(idlePose));
-
-
-
-		ModelPose<StoneFreeEntity> heavyFinisherPose1 = new ModelPose<>(new RotationAngle[] {
 				RotationAngle.fromDegrees(head, 0, 0, 0),
 				RotationAngle.fromDegrees(body, 0, 0, 0),
 				RotationAngle.fromDegrees(upperPart, 0, 10, 0),
@@ -297,7 +225,7 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 				RotationAngle.fromDegrees(rightLeg, 0, 0, 0),
 				RotationAngle.fromDegrees(rightLowerLeg, 5, 0, 0)
 		});
-		ModelPose<StoneFreeEntity> heavyFinisherPose2 = new ModelPose<>(new RotationAngle[] {
+		ModelPose<StoneFreeEntity> heavyPunchPose2 = new ModelPose<>(new RotationAngle[] {
 				RotationAngle.fromDegrees(body, 20, 0, 0),
 				RotationAngle.fromDegrees(upperPart, 0, 15, 0),
 				RotationAngle.fromDegrees(leftArm, -36.95F, -1.12F, -47.93F),
@@ -309,7 +237,7 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 				RotationAngle.fromDegrees(rightLeg, -20, 0, 0),
 				RotationAngle.fromDegrees(rightLowerLeg, 25, 0, 0)
 		});
-		ModelPose<StoneFreeEntity> heavyFinisherPose3 = new ModelPose<>(new RotationAngle[] {
+		ModelPose<StoneFreeEntity> heavyPunchPose3 = new ModelPose<>(new RotationAngle[] {
 				RotationAngle.fromDegrees(body, 24, 0, 0),
 				RotationAngle.fromDegrees(upperPart, 0, 40, 0),
 				RotationAngle.fromDegrees(leftArm, -28.9F, 7.77F, -85.86F),
@@ -321,7 +249,7 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 				RotationAngle.fromDegrees(rightLeg, -25, 0, 0),
 				RotationAngle.fromDegrees(rightLowerLeg, 30, 0, 0)
 		});
-		ModelPose<StoneFreeEntity> heavyFinisherPose4 = new ModelPose<>(new RotationAngle[] {
+		ModelPose<StoneFreeEntity> heavyPunchPose4 = new ModelPose<>(new RotationAngle[] {
 				RotationAngle.fromDegrees(body, 26, 0, 0),
 				RotationAngle.fromDegrees(upperPart, 0, 40, 0),
 				RotationAngle.fromDegrees(leftArm, -2.8073F, -4.4664F, -81.7246F),
@@ -333,7 +261,7 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 				RotationAngle.fromDegrees(rightLeg, -27, 0, 0),
 				RotationAngle.fromDegrees(rightLowerLeg, 32, 0, 0)
 		});
-		ModelPose<StoneFreeEntity> heavyFinisherPose5 = new ModelPose<>(new RotationAngle[] {
+		ModelPose<StoneFreeEntity> heavyPunchPose5 = new ModelPose<>(new RotationAngle[] {
 				RotationAngle.fromDegrees(body, 28, 0, 0),
 				RotationAngle.fromDegrees(upperPart, 0, 0, 0),
 				RotationAngle.fromDegrees(leftArm, -2.8073F, -4.4664F, -81.7246F),
@@ -345,7 +273,7 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 				RotationAngle.fromDegrees(rightLeg, -29, 0, 0),
 				RotationAngle.fromDegrees(rightLowerLeg, 34, 0, 0)
 		});
-		ModelPose<StoneFreeEntity> heavyFinisherPose6 = new ModelPose<>(new RotationAngle[] {
+		ModelPose<StoneFreeEntity> heavyPunchPose6 = new ModelPose<>(new RotationAngle[] {
 				RotationAngle.fromDegrees(body, 30, 0, 0),
 				RotationAngle.fromDegrees(upperPart, 0, -30, 0),
 				RotationAngle.fromDegrees(leftArm, 50.6202F, -32.3282F, -88.6876F),
@@ -359,14 +287,14 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 		});
 
 		actionAnim.put(StandPose.HEAVY_ATTACK_FINISHER, new PosedActionAnimation.Builder<StoneFreeEntity>()
-				.addPose(StandEntityAction.Phase.WINDUP, new ModelPoseTransitionMultiple.Builder<>(heavyFinisherPose1)
-						.addPose(0.2F, heavyFinisherPose2)
-						.addPose(0.4F, heavyFinisherPose3)
-						.addPose(0.6F, heavyFinisherPose4)
-						.addPose(0.8F, heavyFinisherPose5)
-						.build(heavyFinisherPose6))
-				.addPose(StandEntityAction.Phase.RECOVERY, new ModelPoseTransitionMultiple.Builder<>(heavyFinisherPose6)
-						.addPose(0.5F, heavyFinisherPose6)
+				.addPose(StandEntityAction.Phase.WINDUP, new ModelPoseTransitionMultiple.Builder<>(heavyPunchPose1)
+						.addPose(0.2F, heavyPunchPose2)
+						.addPose(0.4F, heavyPunchPose3)
+						.addPose(0.6F, heavyPunchPose4)
+						.addPose(0.8F, heavyPunchPose5)
+						.build(heavyPunchPose6))
+				.addPose(StandEntityAction.Phase.RECOVERY, new ModelPoseTransitionMultiple.Builder<>(heavyPunchPose6)
+						.addPose(0.5F, heavyPunchPose6)
 						.build(idlePose))
 				.build(idlePose));
 
@@ -391,12 +319,16 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 				RotationAngle.fromDegrees(upperPart, 0, 0, 0),
 				RotationAngle.fromDegrees(torso, 0, 0, 0),
 				RotationAngle.fromDegrees(leftArm, 12.5F, -30, -15),
+				RotationAngle.fromDegrees(leftArmJointSlim, 0, 0, 0),
 				RotationAngle.fromDegrees(leftForeArm, -12.5F, 0, 0),
 				RotationAngle.fromDegrees(rightArm, 10, 30, 15),
+				RotationAngle.fromDegrees(rightArmJointSlim, 0, 0, 0),
 				RotationAngle.fromDegrees(rightForeArm, -15, 0, 0),
 				RotationAngle.fromDegrees(leftLeg, 20, 0, 0),
+				RotationAngle.fromDegrees(leftLegJoint, 0, 0, 0),
 				RotationAngle.fromDegrees(leftLowerLeg, 0, 0, 0),
 				RotationAngle.fromDegrees(rightLeg, 0, 0, 0),
+				RotationAngle.fromDegrees(rightLegJoint, 0, 0, 0),
 				RotationAngle.fromDegrees(rightLowerLeg, 5, 0, 0)
 		});
 	}
@@ -405,8 +337,10 @@ public class StoneFreeModel extends HumanoidStandModel<StoneFreeEntity> {
 	protected ModelPose<StoneFreeEntity> initIdlePose2Loop() {
 		return new ModelPose<>(new RotationAngle[] {
 				RotationAngle.fromDegrees(leftArm, 15, -30, -15),
+				RotationAngle.fromDegrees(leftArmJointSlim, 0, 0, 0),
 				RotationAngle.fromDegrees(leftForeArm, -15, 0, 0),
 				RotationAngle.fromDegrees(rightArm, 12.5F, 30, 15),
+				RotationAngle.fromDegrees(rightArmJointSlim, 0, 0, 0),
 				RotationAngle.fromDegrees(rightForeArm, -17.5F, 0, 0)
 		});
 	}

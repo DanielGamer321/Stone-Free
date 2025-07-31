@@ -3,8 +3,8 @@ package com.danielgamer321.rotp_sf.entity.damaging.projectile.ownerbound;
 import com.danielgamer321.rotp_sf.init.InitEntities;
 import com.danielgamer321.rotp_sf.init.InitSounds;
 import com.github.standobyte.jojo.entity.damaging.projectile.ownerbound.OwnerBoundProjectileEntity;
+import com.github.standobyte.jojo.entity.stand.StandEntity;
 import com.github.standobyte.jojo.init.ModStatusEffects;
-import com.github.standobyte.jojo.util.mod.JojoModUtil;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -20,7 +20,6 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
     private float xRotOffset;
     private boolean isCapture;
     private boolean dealtDamage;
-    private float knockback = 0;
 
     public SFStringEntity(World world, LivingEntity entity, float angleXZ, float angleYZ, boolean isCapture) {
         super(InitEntities.SF_STRING.get(), entity, world);
@@ -48,10 +47,13 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
                         remove();
                     }
                 }
-                else {
+                else if (owner != null) {
                     Vector3d vecToOwner = owner.position().subtract(bound.position());
-                    double length = vecToOwner.length();
-                    if (length < 2) {
+                    Vector3d vecToUser = owner instanceof StandEntity && ((StandEntity)owner).getUser() != null ?
+                            owner.position().subtract(bound.position()) : null;
+                    double distance = vecToUser != null ? vecToUser.length() : 0;
+                    if (vecToOwner.length() < 2 || distance < 4) {
+                        bound.addEffect(new EffectInstance(ModStatusEffects.IMMOBILIZE.get(), ticksLifespan() - tickCount));
                         if (!level.isClientSide()) {
                             isCapture = false;
                         }
@@ -70,29 +72,18 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
         return true;
     }
     
-    public boolean isCapture() {
-        return isCapture;
-    }
-    
     @Override
     public float getBaseDamage() {
         return 0.30769231F;
-    }
-    
-    public void addKnockback(float knockback) {
-        this.knockback = knockback;
     }
     
     @Override
     protected boolean hurtTarget(Entity target, LivingEntity owner) {
         if (getEntityAttachedTo() == null) {
             if (target instanceof LivingEntity) {
-                LivingEntity livingTarget = (LivingEntity) target;
-                if (!JojoModUtil.isTargetBlocking(livingTarget)) {
-                    attachToEntity((LivingEntity) target);
-                    playSound(InitSounds.STONE_FREE_GRAPPLE_CATCH.get(), 1.0F, 1.0F);
-                    return true;
-                }
+                attachToEntity((LivingEntity) target);
+                playSound(InitSounds.STONE_FREE_GRAPPLE_CATCH.get(), 1.0F, 1.0F);
+                return true;
             }
         }
         return !dealtDamage ? super.hurtTarget(target, owner) : false;
@@ -106,14 +97,14 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
     @Override
     protected void afterEntityHit(EntityRayTraceResult entityRayTraceResult, boolean entityHurt) {
         if (entityHurt) {
-            dealtDamage = true;
             Entity target = entityRayTraceResult.getEntity();
+            if (!(target instanceof SFStringEntity || (target instanceof SFUStringEntity &&
+                    ((SFUStringEntity)target).isBinding()))) {
+                dealtDamage = true;
+            }
             if (target instanceof LivingEntity) {
                 LivingEntity livingTarget = (LivingEntity) target;
-                if (!JojoModUtil.isTargetBlocking(livingTarget)) {
-                    attachToEntity(livingTarget);
-                    livingTarget.addEffect(new EffectInstance(ModStatusEffects.IMMOBILIZE.get(), ticksLifespan() - tickCount));
-                }
+                attachToEntity(livingTarget);
             }
         }
     }
@@ -132,7 +123,7 @@ public class SFStringEntity extends OwnerBoundProjectileEntity {
     public int ticksLifespan() {
         int ticks = super.ticksLifespan();
         if (isAttachedToAnEntity()) {
-            ticks += 10;
+            ticks += 25;
         }
         return ticks;
     }

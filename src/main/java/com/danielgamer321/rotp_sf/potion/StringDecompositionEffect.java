@@ -20,6 +20,15 @@ public class StringDecompositionEffect extends UncurableEffect implements IAppli
         addAttributeModifier(Attributes.MOVEMENT_SPEED, "e30ee41c-6ea2-468c-99ab-fd0a7d6be8c3", -0.025, AttributeModifier.Operation.MULTIPLY_TOTAL).
         addAttributeModifier(ForgeMod.SWIM_SPEED.get(), "34dcb563-6759-4a2b-9dd8-ad2dd7e70404", -0.025, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
+
+    @Override
+    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        super.applyEffectTick(livingEntity,amplifier);
+        if (IStandPower.getStandPowerOptional(livingEntity).map(stand -> stand.hasPower() &&
+                stand.getType() != AddonStands.STONE_FREE.getStandType()).orElse(false)) {
+            livingEntity.removeEffect(this);
+        }
+    }
     
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {

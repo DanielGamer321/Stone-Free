@@ -60,7 +60,7 @@ public class InitStands {
                     .partsRequired(StandPart.ARMS)));
     
     public static final RegistryObject<StandEntityAction> STONE_FREE_HEAVY_PUNCH = ACTIONS.register("stone_free_heavy_punch", 
-            () -> new StoneFreeHeavyPunch(new StandEntityHeavyAttack.Builder()
+            () -> new StandEntityHeavyAttack(new StandEntityHeavyAttack.Builder()
                     .punchSound(InitSounds.STONE_FREE_PUNCH_HEAVY)
                     .standSound(Phase.WINDUP, InitSounds.STONE_FREE_ORA_LONG)
                     .partsRequired(StandPart.ARMS)

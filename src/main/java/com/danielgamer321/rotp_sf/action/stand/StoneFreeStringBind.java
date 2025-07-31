@@ -31,7 +31,10 @@ public class StoneFreeStringBind extends  StandEntityAction {
         }
         else {
             StandEntity stand = (StandEntity) power.getStandManifestation();
-            if (stand.isArmsOnlyMode()) {
+            if ((stand.getCurrentTaskAction() != null && stand.getCurrentTaskAction() != this &&
+                    stand.getCurrentTaskAction() != InitStands.STONE_FREE_BARRAGE.get() &&
+                    stand.getCurrentTaskAction() != InitStands.STONE_FREE_PUNCH.get()) ||
+                    stand.isArmsOnlyMode()) {
                 return InitStands.STONE_FREE_USER_STRING_BIND.get();
             }
         }
@@ -56,6 +59,7 @@ public class StoneFreeStringBind extends  StandEntityAction {
         if (!world.isClientSide()) {
             boolean isCapture = false;
             addProjectile(world, userPower, standEntity, 0, 0, isCapture);
+            InitStands.STONE_FREE_USER_STRING_BIND.get().setCooldownOnUse(userPower);
         }
     }
 

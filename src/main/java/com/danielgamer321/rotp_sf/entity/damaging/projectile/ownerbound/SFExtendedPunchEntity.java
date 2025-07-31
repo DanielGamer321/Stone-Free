@@ -53,7 +53,11 @@ public class SFExtendedPunchEntity extends OwnerBoundProjectileEntity {
     @Override
     protected void afterEntityHit(EntityRayTraceResult entityRayTraceResult, boolean entityHurt) {
         super.afterEntityHit(entityRayTraceResult, entityHurt);
-        setIsRetracting(true);
+        Entity target = entityRayTraceResult.getEntity();
+        if (!(target instanceof SFStringEntity || (target instanceof SFUStringEntity &&
+                ((SFUStringEntity)target).isBinding()))) {
+            setIsRetracting(true);
+        }
     }
 
     @Override

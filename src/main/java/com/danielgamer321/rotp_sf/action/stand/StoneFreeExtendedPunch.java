@@ -29,7 +29,10 @@ public class StoneFreeExtendedPunch extends StandEntityAction {
         }
         else {
             StandEntity stand = (StandEntity) power.getStandManifestation();
-            if (stand.isArmsOnlyMode()) {
+            if ((stand.getCurrentTaskAction() != null && stand.getCurrentTaskAction() != this &&
+                    stand.getCurrentTaskAction() != InitStands.STONE_FREE_BARRAGE.get() &&
+                    stand.getCurrentTaskAction() != InitStands.STONE_FREE_PUNCH.get()) ||
+                    stand.isArmsOnlyMode()) {
                 return InitStands.STONE_FREE_USER_STRING_PICK.get();
             }
         }

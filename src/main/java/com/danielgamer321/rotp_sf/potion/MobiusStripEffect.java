@@ -23,23 +23,29 @@ public class MobiusStripEffect extends UncurableEffect implements IApplicableEff
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         super.applyEffectTick(livingEntity,amplifier);
-        if (AddonInteractionUtil.getInvestedEntity(livingEntity) > 0) {
-            Effect inversion = null;
-            Map<Effect, EffectInstance> map = livingEntity.getActiveEffectsMap();
-            for (Effect effect : map.keySet()) {
-                if (AddonInteractionUtil.CM_INVERSION.equals(effect.getRegistryName())) {
-                    inversion = effect;
+        if (IStandPower.getStandPowerOptional(livingEntity).map(stand -> stand.hasPower() &&
+                stand.getType() == AddonStands.STONE_FREE.getStandType()).orElse(false)) {
+            if (AddonInteractionUtil.getInvestedEntity(livingEntity) > 0) {
+                Effect inversion = null;
+                Map<Effect, EffectInstance> map = livingEntity.getActiveEffectsMap();
+                for (Effect effect : map.keySet()) {
+                    if (AddonInteractionUtil.CM_INVERSION.equals(effect.getRegistryName())) {
+                        inversion = effect;
+                    }
+                }
+                if (inversion != null)
+                    livingEntity.removeEffect(inversion);
+                IStandPower.getStandPowerOptional(livingEntity).ifPresent(stand -> {
+                    stand.consumeStamina(10 * AddonInteractionUtil.getInvestedEntity(livingEntity));
+                });
+                EffectInstance mobiusStip = livingEntity.getEffect(this);
+                if (mobiusStip != null) {
+                    livingEntity.addEffect(new EffectInstance(InitEffects.MOBIUS_STRIP.get(), mobiusStip.getDuration() + 40, 0, false, false, true));
                 }
             }
-            if (inversion != null)
-                livingEntity.removeEffect(inversion);
-            IStandPower.getStandPowerOptional(livingEntity).ifPresent(stand -> {
-                stand.consumeStamina(10 * AddonInteractionUtil.getInvestedEntity(livingEntity));
-            });
-            EffectInstance mobiusStip = livingEntity.getEffect(this);
-            if (mobiusStip != null) {
-                livingEntity.addEffect(new EffectInstance(InitEffects.MOBIUS_STRIP.get(), mobiusStip.getDuration() + 40, 0, false, false, true));
-            }
+        }
+        else {
+            livingEntity.removeEffect(this);
         }
     }
     

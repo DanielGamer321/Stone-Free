@@ -59,10 +59,6 @@ public class SFUStringWhipEntity extends OwnerBoundProjectileEntity {
     protected Vector3d originOffset(float yRot, float xRot, double distance) {
         return super.originOffset(yRot + yRotOffset , xRot + xRotOffset, distance);
     }
-
-    public void addKnockback(float knockback) {
-        this.knockback = knockback;
-    }
     
     @Override
     protected boolean hurtTarget(Entity target, LivingEntity owner) {
@@ -72,8 +68,10 @@ public class SFUStringWhipEntity extends OwnerBoundProjectileEntity {
     @Override
     protected void afterEntityHit(EntityRayTraceResult entityRayTraceResult, boolean entityHurt) {
         if (entityHurt) {
-            dealtDamage = true;
             Entity target = entityRayTraceResult.getEntity();
+            if (!(target instanceof SFStringEntity)) {
+                dealtDamage = true;
+            }
             if (knockback > 0 && target instanceof LivingEntity) {
                 DamageUtil.knockback((LivingEntity) target, knockback, yRot);
             }
